@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import useSignup from "../../hook/useSignup";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -10,10 +11,27 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confrimPassword, setConfirmPassword] = useState("");
   const [eyesOn, setEyesOn] = useState(false);
+  const { signup, error, isLoading } = useSignup();
+
+  const resetInputs = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setEyesOn(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name);
+
+    if (password !== confrimPassword) {
+      alert("Password and ConfirmPassword must be equal");
+      return;
+    }
+
+    resetInputs();
+
+    await signup(name, email, password);
   };
 
   return (
@@ -92,6 +110,9 @@ const Signup = () => {
               Create an Account
             </button>
           </div>
+          {error && (
+            <div className="text-red-600 flex justify-center">{error}</div>
+          )}
           <Link to={"/login"}>
             <div className="flex justify-center">
               Already have an account{" "}
