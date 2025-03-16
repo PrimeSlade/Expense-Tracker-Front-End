@@ -3,15 +3,26 @@ import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useLogin } from "../../hook/useLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [eyesOn, setEyesOn] = useState(false);
+  const { login, error, isLoading } = useLogin();
+
+  const resetInputs = () => {
+    setEmail("");
+    setPassword("");
+    setEyesOn(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+
+    resetInputs();
+
+    await login(email, password);
   };
 
   return (
@@ -65,10 +76,14 @@ const Login = () => {
             <button
               className="bg-green-600 text-white hover:bg-green-400 rounded-sm w-60 h-8"
               type="submit"
+              disabled={isLoading}
             >
               Create an Account
             </button>
           </div>
+          {error && (
+            <div className="text-red-600 flex justify-center">{error}</div>
+          )}
           <Link to={"/signup"}>
             <div className="flex justify-center">
               Don't have an account{" "}

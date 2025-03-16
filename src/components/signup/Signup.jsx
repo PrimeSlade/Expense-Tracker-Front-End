@@ -106,6 +106,7 @@ const Signup = () => {
             <button
               className="bg-green-600 text-white hover:bg-green-400 rounded-sm w-60 h-8"
               type="submit"
+              disabled={isLoading}
             >
               Create an Account
             </button>

@@ -26,7 +26,6 @@ export const useSignup = () => {
       setError(user.error);
     }
     if (user.id) {
-      console.log("ok");
       setIsLoading(false);
       navigate("/login");
     }
