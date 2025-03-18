@@ -78,7 +78,7 @@ const Login = () => {
               type="submit"
               disabled={isLoading}
             >
-              Create an Account
+              Log in
             </button>
           </div>
           {error && (
