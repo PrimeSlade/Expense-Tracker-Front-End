@@ -6,10 +6,15 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate();
 
-  const signup = async (name, email, password) => {
+  const signup = async (name, email, password, confirmPassword) => {
     //for giving info
     setIsLoading(true);
     setError(null);
+
+    if (password !== confirmPassword) {
+      setError("Password and ConfrimPassword must be the same");
+      return;
+    }
 
     //fetch
     const res = await fetch("http://localhost:3000/signup", {

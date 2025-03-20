@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthConext";
+import { useNavigate } from "react-router";
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
+
+  const navigate = useNavigate();
 
   const login = async (email, password) => {
     //for giving info
@@ -16,7 +19,7 @@ export const useLogin = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: email, password: password }),
-      credentials: "include",
+      credentials: "include", //for storing cookie that is sent from backends server
     });
 
     const user = await res.json();
@@ -34,6 +37,7 @@ export const useLogin = () => {
       //update the auth context
       dispatch({ type: "LOGIN", payload: user });
       setIsLoading(false);
+      navigate("/");
     }
   };
 

@@ -1,10 +1,15 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
 import "./App.css";
-import Home from "./components/home/Home";
-import Signup from "./components/signup/Signup";
-import Login from "./components/login/Login";
+import Home from "./pages/home/Home";
+import Signup from "./pages/signup/Signup";
+import Login from "./pages/login/Login";
+import { useAuthContext } from "./hook/useAuthConext";
 
 function App() {
+  const { user } = useAuthContext();
+  if (user) {
+    console.log(user.id);
+  }
   return (
     <>
       <Routes>
