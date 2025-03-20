@@ -1,95 +1,76 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useLogin } from "../../hook/useLogin";
+import FormInput from "../../components/singup&login/FormInput";
+import Button from "../../components/singup&login/Button";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [eyesOn, setEyesOn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login, error, isLoading } = useLogin();
 
-  const resetInputs = () => {
-    setEmail("");
-    setPassword("");
-    setEyesOn(false);
-  };
+  const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ resolver: zodResolver(loginSchema) });
 
-    resetInputs();
-
-    await login(email, password);
+  const onSubmit = async (data) => {
+    await login(data.email, data.password);
   };
 
   return (
     <div className="w-full flex flex-col justify-center items-center sm:h-screen">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="border-1 pt-10 pl-20 pr-20 pb-10 rounded-2xl border-white shadow-none sm:shadow-md">
-          <h1 className="font-bold text-2xl flex justify-center text-green-600">
+          <h1 className="font-bold text-2xl flex justify-center text-[var(--primary-color)]">
             Log Into Your Account
           </h1>
-
-          <div className="m-1 ">
-            <h2>Email</h2>
-            <input
-              value={email}
-              type="text"
-              placeholder="Enter your email"
-              className="border-gray-300 border rounded-md h-8 w-80 pl-4 pt-5 pb-5 focus:outline-none focus:border-green-600"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="m-1 relative">
-            <h2>Password</h2>
-            <input
-              value={password}
-              type={eyesOn ? "text" : "password"}
-              placeholder="Enter your password"
-              className="border-gray-300 border rounded-md h-8 w-80 pl-4 pt-5 pb-5 focus:outline-none focus:border-green-600"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {!eyesOn ? (
-              <FontAwesomeIcon
-                icon={faEye}
-                className="absolute right-3 top-1/2 pt-1"
-                onClick={() => {
-                  setEyesOn(true);
-                }}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faEyeSlash}
-                className="absolute right-3 top-1/2 pt-1"
-                onClick={() => {
-                  setEyesOn(false);
-                }}
-              />
-            )}
-          </div>
-          <div className="flex justify-center m-4">
-            <button
-              className="bg-green-600 text-white hover:bg-green-400 rounded-sm w-60 h-8"
-              type="submit"
-              disabled={isLoading}
-            >
-              Log in
-            </button>
-          </div>
-          {error && (
-            <div className="text-red-600 flex justify-center">{error}</div>
+          <FormInput
+            title={"Email"}
+            type={"text"}
+            placeholder={"Enter your email"}
+            {...register("email")}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mb-1 text-center">
+              {errors.email.message}
+            </p>
           )}
-          <Link to={"/signup"}>
-            <div className="flex justify-center">
-              Don't have an account{" "}
-              <h3 className="ml-2 font-bold  text-green-600">Sign up</h3>
+          <FormInput
+            title={"Password"}
+            type={showPassword ? "text" : "password"}
+            placeholder={"Enter your password"}
+            toggleIcon={showPassword ? faEye : faEyeSlash}
+            onToggle={() => setShowPassword((p) => !p)}
+            {...register("password")}
+          />
+          {errors.password && (
+            <p className="text-red-500 text-sm mb-1 text-center">
+              {errors.password.message}
+            </p>
+          )}
+          <Button disabled={isLoading} btnName={"Login"} />
+          {/* errors from back end and hook */}
+          {error && (
+            <div className="text-red-600 text-sm flex justify-center mb-3">
+              {error}
             </div>
-          </Link>
+          )}
+          <div className="flex justify-center cursor-pointer">
+            Don't have an account?{" "}
+            <h3 className="ml-2 font-bold  text-[var(--primary-color)]">
+              <Link to={"/signup"}>Register</Link>
+            </h3>
+          </div>
         </div>
       </form>
     </div>

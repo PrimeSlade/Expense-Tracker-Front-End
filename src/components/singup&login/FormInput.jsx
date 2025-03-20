@@ -10,7 +10,7 @@ const FormInput = ({
   ...rest
 }) => {
   return (
-    <div className="m-1">
+    <div className="m-1 lg:w-85 w-70">
       <label htmlFor="" className="font-bold">
         {title}
         <span className="text-red-600">*</span>
@@ -22,6 +22,7 @@ const FormInput = ({
           className="flex-grow outline-none"
           {...rest}
         />
+
         {toggleIcon && (
           <FontAwesomeIcon
             icon={toggleIcon}

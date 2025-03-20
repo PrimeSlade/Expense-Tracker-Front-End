@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import useSignup from "../../hook/useSignup";
-import FormInput from "../../components/singup/FormInput";
-import Button from "../../components/singup/Button";
+import FormInput from "../../components/singup&login/FormInput";
+import Button from "../../components/singup&login/Button";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,8 +15,10 @@ const Signup = () => {
   const signUpSchema = z.object({
     username: z.string(),
     email: z.string().email(),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+    confirmPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters long"),
   });
 
   const {
@@ -98,14 +99,13 @@ const Signup = () => {
               {error}
             </div>
           )}
-          <Link to={"/login"}>
-            <div className="flex justify-center">
-              Already have an account{" "}
-              <h3 className="ml-2 font-bold  text-[var(--primary-color)]">
-                Login
-              </h3>
-            </div>
-          </Link>
+
+          <div className="flex justify-center cursor-pointer">
+            Already have an account{" "}
+            <h3 className="ml-2 font-bold  text-[var(--primary-color)]">
+              <Link to={"/login"}>Login</Link>
+            </h3>
+          </div>
         </div>
       </form>
     </div>
