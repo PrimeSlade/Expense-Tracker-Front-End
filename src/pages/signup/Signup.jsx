@@ -28,7 +28,6 @@ const Signup = () => {
   } = useForm({ resolver: zodResolver(signUpSchema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
     await signup(
       data.username,
       data.email,

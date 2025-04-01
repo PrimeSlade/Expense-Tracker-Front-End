@@ -11,27 +11,20 @@ export const useLogin = () => {
   const navigate = useNavigate();
 
   const login = async (email, password) => {
-    //for giving info
-    setIsLoading(true);
-    setError(null);
+    try {
+      //for giving info
+      setIsLoading(true);
+      setError(null);
 
-    const { data } = await axiosInstance.post(
-      "/login",
-      {
-        email: email,
-        password: password,
-      },
-      { headers: { "Content-Type": "application/json" } }
-    );
+      const { data } = await axiosInstance.post(
+        "/login",
+        {
+          email: email,
+          password: password,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    console.log(data);
-
-    //not ok
-    if (data.error) {
-      setIsLoading(false);
-      setError(data.error);
-    }
-    if (data.id) {
       //save the user to local storage
       localStorage.setItem("user", JSON.stringify(data));
 
@@ -39,6 +32,9 @@ export const useLogin = () => {
       dispatch({ type: "LOGIN", payload: data });
       setIsLoading(false);
       navigate("/");
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.response.data.error);
     }
   };
 
