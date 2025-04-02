@@ -1,3 +1,4 @@
+import NavBar from "../../components/navbar/NavBar";
 import { useAuthContext } from "../../hook/useAuthConext";
 
 const Home = () => {
@@ -24,8 +25,10 @@ const Home = () => {
 
   return (
     <>
-      <div className="font-bold underline">Home</div>
-      <button onClick={data}>click</button>
+      <div className="grid grid-cols-3">
+        <NavBar />
+        <div className="col-span-2 font-bold">OK</div>
+      </div>
     </>
   );
 };
