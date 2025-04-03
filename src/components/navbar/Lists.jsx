@@ -5,7 +5,7 @@ const Lists = ({ icon, text, onClick }) => {
   return (
     <>
       <li className="menu w-70 hover:text-[var(--primary-color)]">
-        <div className="flex gap-2">
+        <div>
           <div>
             <FontAwesomeIcon icon={icon} />
           </div>
