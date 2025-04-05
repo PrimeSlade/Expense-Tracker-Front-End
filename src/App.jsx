@@ -1,9 +1,10 @@
 import { Route, Routes, Navigate } from "react-router";
 import "./App.css";
-import Home from "./pages/home/Home";
+import Home from "./pages/main/Main";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import { useAuthContext } from "./hook/useAuthConext";
+import Main from "./pages/main/Main";
 
 function App() {
   const { user } = useAuthContext();
@@ -11,7 +12,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/" element={user ? <Main /> : <Navigate to="/login" />} />
         <Route
           path="/signup"
           element={!user ? <Signup /> : <Navigate to="/" />}
