@@ -1,7 +1,11 @@
-import NavBar from "../../components/navbar/NavBar";
+import Home from "@/components/home/Home";
 import { useAuthContext } from "../../hook/useAuthConext";
 import { useEffect } from "react";
-import { Route, Routes } from "react-router";
+import { Route, Routes, Outlet } from "react-router";
+import Expenses from "@/components/expenses/Expenses";
+import SmartSave from "@/components/smart_save/SmartSave";
+import Setting from "@/components/setting/Setting";
+import NavBar from "@/components/navbar/NavBar";
 
 const Main = () => {
   return (
@@ -12,13 +16,7 @@ const Main = () => {
         </div>
         <div className="md:w-full md:flex">
           <div className="md:w-250 md:h-180  m-auto rounded-xl bg-gray-100">
-            ok
-            <Routes>
-              {/* <Route path="/" element={<Home />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/" element={<Home />} /> */}
-            </Routes>
+            <Outlet />
           </div>
         </div>
       </div>

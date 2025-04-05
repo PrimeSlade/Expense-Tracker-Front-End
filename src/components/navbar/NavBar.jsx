@@ -9,31 +9,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Lists from "./Lists";
 import AlertBox from "../alertbox/AlertBox";
+import { useNavigate } from "react-router";
 
 const NavBar = () => {
   const { user } = useAuthContext();
   const [active, setActive] = useState("Home");
-  console.log(active);
+
+  const navigate = useNavigate();
 
   const handleClick = (page) => {
-    switch (page) {
-      case "Home": {
-        setActive("Home");
-        return;
-      }
-      case "Expenses": {
-        setActive("Expenses");
-        return;
-      }
-      case "Smart Save": {
-        setActive("Smart Save");
-        return;
-      }
-      case "Setting": {
-        setActive("Setting");
-        return;
-      }
-    }
+    setActive(page);
+    navigate(`/${page.toLowerCase()}`);
   };
 
   return (
@@ -79,8 +65,8 @@ const NavBar = () => {
             <Lists
               icon={faLightbulb}
               text={"Smart Save"}
-              onClick={() => handleClick("Smart Save")}
-              isActive={active === "Smart Save"}
+              onClick={() => handleClick("SmartSave")}
+              isActive={active === "SmartSave"}
             />
             <Lists
               icon={faSliders}
