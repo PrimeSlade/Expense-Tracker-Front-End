@@ -4,10 +4,10 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import { useAuthContext } from "./hook/useAuthConext";
 import Main from "./pages/main/Main";
-import Home from "./components/home/Home";
-import Expenses from "./components/expenses/Expenses";
-import SmartSave from "./components/smart_save/SmartSave";
-import Setting from "./components/setting/Setting";
+import Expenses from "./pages/expenses/Expenses";
+import SmartSave from "./pages/smart_save/SmartSave";
+import Setting from "./pages/setting/Setting";
+import Home from "./pages/home/Home";
 
 function App() {
   const { user } = useAuthContext();

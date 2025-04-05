@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../navbar/NavBar";
+import NavBar from "../../components/navbar/NavBar";
 
 const Setting = () => {
   return (
