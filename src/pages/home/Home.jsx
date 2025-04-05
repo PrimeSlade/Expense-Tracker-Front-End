@@ -3,10 +3,6 @@ import { useAuthContext } from "../../hook/useAuthConext";
 import { useEffect } from "react";
 
 const Home = () => {
-  const { dispatch } = useAuthContext();
-
-  //useEffect(async () => {}, []);
-
   return (
     <>
       <div className="grid grid-cols-[auto_1fr]">

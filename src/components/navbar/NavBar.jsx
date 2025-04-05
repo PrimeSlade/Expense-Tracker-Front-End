@@ -9,16 +9,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Lists from "./Lists";
 import Button from "../singup&login/Button";
+import { useLogout } from "../../hook/useLogout";
 
 const NavBar = () => {
   const { user } = useAuthContext();
+  const { logout } = useLogout();
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <>
       <div className="drawer md:drawer-open">
         <input id="my-drawer" type="checkbox" className="drawer-toggle " />
         <div className="drawer-content md:hidden ml-3">
-          {/* Page content here */}
           <label htmlFor="my-drawer" className="text-5xl">
             <IoReorderThreeSharp />
           </label>
@@ -48,7 +53,11 @@ const NavBar = () => {
             <Lists icon={faSliders} text={"Setting"} />
 
             <div className="mt-80">
-              <Button btnName={"Log out"} variant={"secondary"} />
+              <Button
+                btnName={"Log out"}
+                variant={"secondary"}
+                onClick={handleLogout}
+              />
             </div>
           </ul>
         </div>
