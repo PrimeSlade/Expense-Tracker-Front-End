@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "../../hook/useAuthConext";
 import { IoReorderThreeSharp } from "react-icons/io5";
 import {
@@ -12,6 +12,29 @@ import AlertBox from "../alertbox/AlertBox";
 
 const NavBar = () => {
   const { user } = useAuthContext();
+  const [active, setActive] = useState("Home");
+  console.log(active);
+
+  const handleClick = (page) => {
+    switch (page) {
+      case "Home": {
+        setActive("Home");
+        return;
+      }
+      case "Expenses": {
+        setActive("Expenses");
+        return;
+      }
+      case "Smart Save": {
+        setActive("Smart Save");
+        return;
+      }
+      case "Setting": {
+        setActive("Setting");
+        return;
+      }
+    }
+  };
 
   return (
     <>
@@ -41,10 +64,30 @@ const NavBar = () => {
                 </h2>
               </div>
             </li>
-            <Lists icon={faChartSimple} text={"Home"} />
-            <Lists icon={faWallet} text={"Expenses"} />
-            <Lists icon={faLightbulb} text={"Smart Save"} />
-            <Lists icon={faSliders} text={"Setting"} />
+            <Lists
+              icon={faChartSimple}
+              text={"Home"}
+              onClick={() => handleClick("Home")}
+              isActive={active === "Home"}
+            />
+            <Lists
+              icon={faWallet}
+              text={"Expenses"}
+              onClick={() => handleClick("Expenses")}
+              isActive={active === "Expenses"}
+            />
+            <Lists
+              icon={faLightbulb}
+              text={"Smart Save"}
+              onClick={() => handleClick("Smart Save")}
+              isActive={active === "Smart Save"}
+            />
+            <Lists
+              icon={faSliders}
+              text={"Setting"}
+              onClick={() => handleClick("Setting")}
+              isActive={active === "Setting"}
+            />
             <AlertBox
               btn={"Log out"}
               title={"Are you absolutely sure?"}

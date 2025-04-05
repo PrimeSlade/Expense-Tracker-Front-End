@@ -1,10 +1,14 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Lists = ({ icon, text, onClick }) => {
+const Lists = ({ icon, text, onClick, isActive }) => {
   return (
     <>
-      <li className="menu w-70 hover:text-[var(--primary-color)]">
+      <li
+        className={`menu w-70 hover:text-[var(--primary-color)] ${
+          isActive ? "text-[var(--primary-color)]" : ""
+        }`}
+      >
         <div>
           <div>
             <FontAwesomeIcon icon={icon} />
