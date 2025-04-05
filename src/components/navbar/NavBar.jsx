@@ -8,16 +8,10 @@ import {
   faLightbulb,
 } from "@fortawesome/free-solid-svg-icons";
 import Lists from "./Lists";
-import Button from "../singup&login/Button";
-import { useLogout } from "../../hook/useLogout";
+import AlertBox from "../alertbox/AlertBox";
 
 const NavBar = () => {
   const { user } = useAuthContext();
-  const { logout } = useLogout();
-
-  const handleLogout = async () => {
-    await logout();
-  };
 
   return (
     <>
@@ -51,14 +45,11 @@ const NavBar = () => {
             <Lists icon={faWallet} text={"Expenses"} />
             <Lists icon={faLightbulb} text={"Smart Save"} />
             <Lists icon={faSliders} text={"Setting"} />
-
-            <div className="mt-80">
-              <Button
-                btnName={"Log out"}
-                variant={"secondary"}
-                onClick={handleLogout}
-              />
-            </div>
+            <AlertBox
+              btn={"Log out"}
+              title={"Are you absolutely sure?"}
+              description={"This action cannot be undone."}
+            />
           </ul>
         </div>
       </div>
