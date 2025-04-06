@@ -1,3 +1,4 @@
+import PolarAreaChart from "@/components/charts/PolarAreaChart";
 import VerticalBarChart from "@/components/charts/VerticalBarChart";
 import React from "react";
 
@@ -8,7 +9,9 @@ const Home = () => {
       <div>
         <VerticalBarChart />
       </div>
-      <div></div>
+      <div>
+        <PolarAreaChart />
+      </div>
     </>
   );
 };
