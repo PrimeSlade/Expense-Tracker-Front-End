@@ -31,7 +31,7 @@ export const data = {
 
 const PolarAreaChart = () => {
   return (
-    <div className="w-80">
+    <div className="w-70">
       <PolarArea data={data} />
     </div>
   );

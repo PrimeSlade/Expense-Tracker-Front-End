@@ -7,7 +7,7 @@ import NavBar from "@/components/navbar/NavBar";
 const Main = () => {
   return (
     <>
-      <div className="grid grid-cols-[auto_1fr]">
+      <div className="grid grid-cols-[auto_1fr] ">
         <div className="w-80">
           <NavBar />
         </div>

@@ -68,7 +68,7 @@ export const data = {
 
 const VerticalBarChart = () => {
   return (
-    <div className="w-150 mx-auto mt-5">
+    <div className="w-120 mt-5">
       <Bar options={options} data={data} />
     </div>
   );
