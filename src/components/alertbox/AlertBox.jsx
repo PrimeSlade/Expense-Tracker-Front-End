@@ -34,12 +34,7 @@ const AlertBox = ({ btn, title, description }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleLogout}
-              className={"bg-red-600 hover:bg-red-700"}
-            >
-              Yes
-            </AlertDialogAction>
+            <AlertDialogAction onClick={handleLogout}>Yes</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

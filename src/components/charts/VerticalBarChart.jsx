@@ -1,76 +1,77 @@
-import React from "react";
+"use client";
+
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { faker } from "@faker-js/faker";
-import { Bar } from "react-chartjs-2";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+const chartData = [
+  { month: "Jan", desktop: 186, mobile: 80 },
+  { month: "Feb", desktop: 305, mobile: 200 },
+  { month: "Mar", desktop: 237, mobile: 120 },
+  { month: "Apr", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "Jun", desktop: 214, mobile: 140 },
+  { month: "Jul", desktop: 186, mobile: 80 },
+  { month: "Aug", desktop: 305, mobile: 200 },
+  { month: "Sep", desktop: 237, mobile: 120 },
+  { month: "Oct", desktop: 73, mobile: 190 },
+  { month: "Nov", desktop: 209, mobile: 130 },
+  { month: "Dec", desktop: 214, mobile: 140 },
+];
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Chart",
-    },
+const chartConfig = {
+  desktop: {
+    label: "Income",
+    color: "hsl(141, 60%, 42%)",
+  },
+  mobile: {
+    label: "Expense",
+    color: "hsl(0, 0%, 0%)",
   },
 };
 
-const labels = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const myData1 = [100, 200, 150, 300, 250, 400, 350]; // Example data
-const myData2 = [50, 100, 200, 180, 130, 170, 160];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Income",
-      data: myData1,
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Expense",
-      data: myData2,
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
+import React from "react";
 
 const VerticalBarChart = () => {
   return (
-    <div className="w-120 mt-5">
-      <Bar options={options} data={data} />
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Bar Chart</CardTitle>
+        <CardDescription>January - December</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dashed" />}
+            />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   );
 };
 
