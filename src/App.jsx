@@ -22,7 +22,6 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/smartsave" element={<SmartSave />} />
-          <Route path="/setting" element={<Setting />} />
         </Route>
         <Route
           path="/signup"
@@ -31,6 +30,10 @@ function App() {
         <Route
           path="/login"
           element={!user ? <Login /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/setting"
+          element={user ? <Setting /> : <Navigate to="/login" />}
         />
       </Routes>
     </>
