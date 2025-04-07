@@ -73,12 +73,13 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
 
   const submit = (data) => {
     console.log(data);
+    console.log(date);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(submit)}>
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-5">
           <div className="border w-230 mt-7 rounded-xl h-auto p-10 bg-black grid grid-cols-2 gap-5">
             <CostInput register={register} errors={errors} />
             <TypeInput control={control} errors={errors} />
