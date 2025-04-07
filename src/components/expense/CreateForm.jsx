@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
   cost: z.number().positive("Cost must be positive"),
+  type: z.enum(["Income", "Expense"], {
+    errors: "Select a valid type",
+  }),
   note: z.string().optional(),
 });
 
@@ -18,6 +21,7 @@ const CreateForm = () => {
   const [date, setDate] = useState(new Date());
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -40,7 +44,7 @@ const CreateForm = () => {
         <div className="flex justify-center">
           <div className="border w-230 mt-7 rounded-xl h-auto p-10 bg-black grid grid-cols-2 gap-5">
             <CostInput register={register} />
-            <TypeInput />
+            <TypeInput control={control} />
             <CateInput />
             <DateInput date={date} setDate={setDate} />
             <NoteInput register={register} />
