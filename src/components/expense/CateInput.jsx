@@ -43,8 +43,8 @@ const CateAndDateInput = () => {
           <SelectValue placeholder="Categories" />
         </SelectTrigger>
         <SelectContent className={"font-bold"}>
-          {categories.map((category) => (
-            <SelectItem key={category} value={category}>
+          {categories.map((category, i) => (
+            <SelectItem key={i} value={category}>
               {category}
             </SelectItem>
           ))}
