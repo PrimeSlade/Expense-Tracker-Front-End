@@ -10,21 +10,26 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import Button from "../singup&login/Button";
-import { useLogout } from "../../hook/useLogout";
+import { Button } from "../ui/button";
 
-const AlertBox = ({ btn, title, description }) => {
-  const { logout } = useLogout();
-
-  const handleLogout = async () => {
-    await logout();
-  };
+const AlertBox = ({
+  btn,
+  title,
+  description,
+  className,
+  btnClassName,
+  onClick,
+  type,
+}) => {
   return (
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <div className="mt-80">
-            <Button btnName={btn} variant={"secondary"} />
+          <div className={className}>
+            {/* <Button btnName={btn} variant={"secondary"} /> */}
+            <Button className={btnClassName} type={type}>
+              {btn}
+            </Button>
           </div>
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -34,7 +39,7 @@ const AlertBox = ({ btn, title, description }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleLogout}>Yes</AlertDialogAction>
+            <AlertDialogAction onClick={onClick}>Yes</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

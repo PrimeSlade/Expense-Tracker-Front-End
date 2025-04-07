@@ -11,12 +11,19 @@ import Lists from "./Lists";
 import AlertBox from "../alertbox/AlertBox";
 import { useNavigate } from "react-router";
 import { ActiveContext } from "@/context/ActiveContext";
+import { useLogout } from "../../hook/useLogout";
 
 const NavBar = () => {
   const { user } = useAuthContext();
   const { active, setActive } = useContext(ActiveContext);
 
   const navigate = useNavigate();
+
+  const { logout } = useLogout();
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   const handleClick = (page) => {
     setActive(page);
@@ -79,6 +86,9 @@ const NavBar = () => {
               btn={"Log out"}
               title={"Are you absolutely sure?"}
               description={"This action cannot be undone."}
+              className={"mt-80 flex justify-center"}
+              btnClassName={"w-35 hover:bg-red-700"}
+              onClick={handleLogout}
             />
           </ul>
         </div>

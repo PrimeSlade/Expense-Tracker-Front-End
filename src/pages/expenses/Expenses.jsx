@@ -19,7 +19,7 @@ const Expenses = () => {
             <FontAwesomeIcon icon={faTableList} />
           </Button>
         </div>
-        {!isHidden ? <CreateForm /> : ""}
+        {!isHidden && <CreateForm setIsHidden={setIsHidden} />}
       </div>
     </>
   );

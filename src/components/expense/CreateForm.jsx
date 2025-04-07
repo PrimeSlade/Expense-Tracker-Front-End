@@ -8,16 +8,47 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import AlertBox from "../alertbox/AlertBox";
+
+const categories = [
+  "Income",
+  "Rent",
+  "Utilities",
+  "Groceries",
+  "Transportation",
+  "Insurance",
+  "Dining Out",
+  "Snacks",
+  "Household Supplies",
+  "Phone & Internet",
+  "Streaming Services",
+  "Software & Apps",
+  "Work Expenses",
+  "Debt Payments",
+  "Savings & Investments",
+  "Bank Fees",
+  "Entertainment",
+  "Shopping",
+  "Health & Fitness",
+  "Education",
+  "Gifts & Donations",
+  "Travel",
+  "Emergency",
+  "Kids & Pets",
+];
 
 const formSchema = z.object({
   cost: z.number().positive("Cost must be positive"),
   type: z.enum(["Income", "Expense"], {
     errors: "Select a valid type",
   }),
+  category: z.enum(categories, {
+    errors: "Select a valid category",
+  }),
   note: z.string().optional(),
 });
 
-const CreateForm = () => {
+const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
   const [date, setDate] = useState(new Date());
 
   const {
@@ -28,14 +59,19 @@ const CreateForm = () => {
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      cost: "",
-      note: "",
+      cost: cost || "",
+      type: type || "",
+      categories: category || "",
+      note: note || "",
     },
   });
 
+  const changeHidden = () => {
+    setIsHidden(true);
+  };
+
   const submit = (data) => {
     console.log(data);
-    console.log("ok");
   };
 
   return (
@@ -45,16 +81,19 @@ const CreateForm = () => {
           <div className="border w-230 mt-7 rounded-xl h-auto p-10 bg-black grid grid-cols-2 gap-5">
             <CostInput register={register} />
             <TypeInput control={control} />
-            <CateInput />
+            <CateInput control={control} categories={categories} />
             <DateInput date={date} setDate={setDate} />
             <NoteInput register={register} />
             <div className="flex justify-end col-span-2 gap-3">
-              <Button
-                type="button"
-                className={" border border-white hover:border-red-600"}
-              >
-                Cancel
-              </Button>
+              <AlertBox
+                btn={"Cancel"}
+                btnClassName={"border border-white hover:border-red-600"}
+                title={"Are you absolutely sure?"}
+                description={"This action cannot be undone."}
+                onClick={changeHidden}
+                type={"button"}
+              />
+
               <Button
                 type="submit"
                 className={
