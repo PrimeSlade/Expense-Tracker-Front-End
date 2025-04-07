@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/select";
 import { Controller } from "react-hook-form";
 
-const CateAndDateInput = ({ control, categories }) => {
+const CateAndDateInput = ({ control, categories, errors }) => {
   return (
     <Controller
       name="category"
@@ -28,6 +28,9 @@ const CateAndDateInput = ({ control, categories }) => {
               ))}
             </SelectContent>
           </Select>
+          {errors.category && (
+            <div className="text-red-700 mt-2">{errors.category.message}</div>
+          )}
         </div>
       )}
     />

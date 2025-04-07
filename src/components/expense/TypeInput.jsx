@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/select";
 import { Controller } from "react-hook-form";
 
-const TypeInput = ({ control }) => {
+const TypeInput = ({ control, errors }) => {
   return (
     <Controller
       name="type"
@@ -32,6 +32,9 @@ const TypeInput = ({ control }) => {
               </SelectItem>
             </SelectContent>
           </Select>
+          {errors.type && (
+            <div className="text-red-700 mt-2">{errors.type.message}</div>
+          )}
         </div>
       )}
     />

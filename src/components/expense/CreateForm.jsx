@@ -40,15 +40,16 @@ const categories = [
 const formSchema = z.object({
   cost: z.number().positive("Cost must be positive"),
   type: z.enum(["Income", "Expense"], {
-    errors: "Select a valid type",
+    errorMap: () => ({ message: "Select a valid type" }),
   }),
   category: z.enum(categories, {
-    errors: "Select a valid category",
+    errorMap: () => ({ message: "Select a valid category" }),
   }),
   note: z.string().optional(),
 });
 
 const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
+  //date
   const [date, setDate] = useState(new Date());
 
   const {
@@ -79,9 +80,13 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex justify-center">
           <div className="border w-230 mt-7 rounded-xl h-auto p-10 bg-black grid grid-cols-2 gap-5">
-            <CostInput register={register} />
-            <TypeInput control={control} />
-            <CateInput control={control} categories={categories} />
+            <CostInput register={register} errors={errors} />
+            <TypeInput control={control} errors={errors} />
+            <CateInput
+              control={control}
+              categories={categories}
+              errors={errors}
+            />
             <DateInput date={date} setDate={setDate} />
             <NoteInput register={register} />
             <div className="flex justify-end col-span-2 gap-3">
