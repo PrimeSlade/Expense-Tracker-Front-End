@@ -10,9 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const DateInput = () => {
-  const [date, setDate] = useState(new Date());
-
+const DateInput = ({ date, setDate }) => {
   return (
     <div>
       <div className="font-bold text-white text-xl mb-4">Date</div>
