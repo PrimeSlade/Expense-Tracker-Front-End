@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuthContext } from "../../hook/useAuthConext";
 import { IoReorderThreeSharp } from "react-icons/io5";
 import {
@@ -10,10 +10,11 @@ import {
 import Lists from "./Lists";
 import AlertBox from "../alertbox/AlertBox";
 import { useNavigate } from "react-router";
+import { ActiveContext } from "@/context/ActiveContext";
 
 const NavBar = () => {
   const { user } = useAuthContext();
-  const [active, setActive] = useState("Home");
+  const { active, setActive } = useContext(ActiveContext);
 
   const navigate = useNavigate();
 

@@ -1,7 +1,28 @@
-import React from "react";
+import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableList } from "@fortawesome/free-solid-svg-icons";
+import CreateForm from "@/components/expense/CreateForm";
 
 const Expenses = () => {
-  return <div>Expenses</div>;
+  const [isHidden, setIsHidden] = useState(true);
+
+  return (
+    <>
+      <div>
+        <div className="flex justify-end mt-5 mr-5">
+          <Button
+            onClick={() => {
+              setIsHidden(false);
+            }}
+          >
+            <FontAwesomeIcon icon={faTableList} />
+          </Button>
+        </div>
+        {!isHidden ? <CreateForm /> : ""}
+      </div>
+    </>
+  );
 };
 
 export default Expenses;
