@@ -1,11 +1,25 @@
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
 import CreateForm from "@/components/expense/CreateForm";
+import { useFetchData } from "@/hook/useFetchData";
 
 const Expenses = () => {
   const [isHidden, setIsHidden] = useState(true);
+  const [datas, setDatas] = useState();
+  console.log(datas);
+
+  const { fetch, error } = useFetchData();
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetch();
+      setDatas(data);
+    };
+
+    getData();
+  }, []);
 
   return (
     <>
