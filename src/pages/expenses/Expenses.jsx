@@ -35,7 +35,7 @@ const Expenses = () => {
         <div
           className={`transition-all duration-500 ease-out transform ${
             isHidden
-              ? "opacity-0 scale-95 max-h-0 overflow-hidden "
+              ? "opacity-0 scale-95 max-h-0 overflow-hidden"
               : "opacity-100 scale-100 max-h-[500px]"
           }`}
         >
