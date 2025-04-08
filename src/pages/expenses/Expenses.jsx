@@ -4,23 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
 import CreateForm from "@/components/expense/CreateForm";
 import { useFetchData } from "@/hook/useFetchData";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useAuthContext } from "@/hook/useAuthConext";
-import { Badge } from "@/components/ui/badge";
-import AlertBox from "@/components/alertbox/AlertBox";
+import List from "@/components/expense/List";
 
 const Expenses = () => {
-  const { user } = useAuthContext();
   const [isHidden, setIsHidden] = useState(true);
   const [datas, setDatas] = useState();
-  const [activeId, setActiveId] = useState(null);
   const { fetch, error } = useFetchData();
-
-  const onActive = (id) => {
-    setActiveId((prevId) => (prevId === id ? null : id)); // have to use prev because useState is async
-  };
-
-  console.log(activeId);
 
   useEffect(() => {
     const getData = async () => {
@@ -49,67 +38,8 @@ const Expenses = () => {
             List Unavailable
           </div>
         ) : (
-          datas.map((d, i) => {
-            return (
-              <div id={d.id} key={i} className="text-xl">
-                <div className="flex justify-center">
-                  <div className="border grid grid-cols-1 p-10 mt-5 w-230 rounded-xl bg-white">
-                    <div
-                      className="flex justify-around"
-                      onClick={() => onActive(d.id)}
-                    >
-                      <div className="flex gap-3">
-                        <div>
-                          <FontAwesomeIcon icon={faUser} />
-                        </div>
-                        <h2>{d.categories}</h2>
-                      </div>
-                      <div className="font-bold">
-                        <span
-                          className={
-                            d.transaction_type === "Income"
-                              ? "text-[var(--primary-color)]"
-                              : "text-red-600"
-                          }
-                        >
-                          {d.cost}
-                        </span>{" "}
-                        <span>{user.currency}</span>
-                      </div>
-                      <Badge variant="outline" className={"font-bold w-30"}>
-                        {d.transaction_type}
-                      </Badge>
-                      <div>{d.created_at}</div>
-                    </div>
-                    {/* I used Ai for animation.Ofc,I am not really good at making animation :> */}
-                    <div
-                      className={` text-md transition-all duration-500 ease-out transform ${
-                        activeId !== d.id
-                          ? "opacity-0 scale-95 max-h-0 overflow-hidden "
-                          : "opacity-100 scale-100 max-h-[500px] mt-5"
-                      }`}
-                    >
-                      <div>{d.note}</div>
-                      <div className="flex justify-end gap-3">
-                        <AlertBox
-                          btn={"Delete"}
-                          btnClassName={
-                            "border border-white bg-red-700 hover:bg-red-900"
-                          }
-                          title={"Are you absolutely sure?"}
-                          description={"This action cannot be undone."}
-                          type={"button"}
-                        />
-
-                        <Button type="submit" className={"bg-black text-white"}>
-                          Edit
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
+          datas.map((data, index) => {
+            return <List data={data} index={index} />;
           })
         )}
       </div>
