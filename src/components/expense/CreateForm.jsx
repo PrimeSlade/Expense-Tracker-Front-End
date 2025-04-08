@@ -74,6 +74,7 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
 
   const submit = async (data) => {
     //const data = await useCreate(data.categories);
+    console.log(data.category);
   };
 
   return (

@@ -1,11 +1,11 @@
-import axiosInstance from "axiosInstance";
+import axiosInstance from "../../axiosInstance";
 import React, { useState } from "react";
 
 export const useCreate = () => {
   const [error, setError] = useState(null);
 
   const create = async ({
-    categories,
+    category,
     note,
     created_at,
     cost,
@@ -16,7 +16,7 @@ export const useCreate = () => {
       const { data } = await axiosInstance.post(
         "/create",
         {
-          categories: categories,
+          category: category,
           note: note,
           created_at: created_at,
           cost: cost,

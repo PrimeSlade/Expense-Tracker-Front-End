@@ -47,7 +47,7 @@ const Expenses = () => {
           </div>
         ) : (
           datas.map((data, index) => {
-            return <List data={data} index={index} />;
+            return <List data={data} key={index} />;
           })
         )}
       </div>

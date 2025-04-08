@@ -15,7 +15,7 @@ const List = ({ data, index }) => {
   };
 
   return (
-    <div id={data.id} key={index} className="text-xl">
+    <div id={data.id} className="text-xl">
       <div className="flex justify-center">
         <div className="border grid grid-cols-1 p-10 mt-5 w-230 rounded-xl bg-white">
           <div
