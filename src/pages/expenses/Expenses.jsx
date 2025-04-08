@@ -7,6 +7,7 @@ import { useFetchData } from "@/hook/useFetchData";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "@/hook/useAuthConext";
 import { Badge } from "@/components/ui/badge";
+import AlertBox from "@/components/alertbox/AlertBox";
 
 const Expenses = () => {
   const { user } = useAuthContext();
@@ -16,7 +17,7 @@ const Expenses = () => {
   const { fetch, error } = useFetchData();
 
   const onActive = (id) => {
-    setActiveId(activeId === null ? id : null);
+    setActiveId((prevId) => (prevId === id ? null : id)); // have to use prev because useState is async
   };
 
   console.log(activeId);
@@ -88,12 +89,21 @@ const Expenses = () => {
                           : "opacity-100 scale-100 max-h-[500px] mt-5"
                       }`}
                     >
-                      <div>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Laborum ipsam repudiandae nihil maxime voluptatem
-                        quae blanditiis voluptatibus earum, provident ab hic
-                        quod, saepe quisquam eligendi! Esse exercitationem ab
-                        nisi molestiae.
+                      <div>{d.note}</div>
+                      <div className="flex justify-end gap-3">
+                        <AlertBox
+                          btn={"Delete"}
+                          btnClassName={
+                            "border border-white bg-red-700 hover:bg-red-900"
+                          }
+                          title={"Are you absolutely sure?"}
+                          description={"This action cannot be undone."}
+                          type={"button"}
+                        />
+
+                        <Button type="submit" className={"bg-black text-white"}>
+                          Edit
+                        </Button>
                       </div>
                     </div>
                   </div>
