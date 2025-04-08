@@ -6,16 +6,15 @@ import { useAuthContext } from "@/hook/useAuthConext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
 
-const List = ({ data, index }) => {
+const List = ({ data, activeId, setActiveId }) => {
   const { user } = useAuthContext();
-  const [activeId, setActiveId] = useState(null);
 
   const onActive = (id) => {
     setActiveId((prevId) => (prevId === id ? null : id)); // have to use prev because useState is async
   };
 
   return (
-    <div id={data.id} className="text-xl">
+    <div className="text-xl">
       <div className="flex justify-center">
         <div className="border grid grid-cols-1 p-10 mt-5 w-230 rounded-xl bg-white">
           <div
@@ -46,6 +45,7 @@ const List = ({ data, index }) => {
             <div>{data.created_at}</div>
           </div>
           {/* I used Ai for animation.Ofc,I am not really good at making animation :> */}
+
           <div
             className={` text-sm transition-all duration-500 ease-out transform ${
               activeId !== data.id

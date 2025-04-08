@@ -10,6 +10,7 @@ const Expenses = () => {
   const [isHidden, setIsHidden] = useState(true);
   const [datas, setDatas] = useState();
   const { fetch, error } = useFetchData();
+  const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -33,7 +34,7 @@ const Expenses = () => {
           </Button>
         </div>
         <div
-          className={`transition-all duration-500 ease-out transform ${
+          className={`transition-all duration-300 ease-out transform ${
             isHidden
               ? "opacity-0 scale-95 max-h-0 overflow-hidden"
               : "opacity-100 scale-100 max-h-[500px]"
@@ -47,7 +48,15 @@ const Expenses = () => {
           </div>
         ) : (
           datas.map((data, index) => {
-            return <List data={data} key={index} />;
+            return (
+              <List
+                data={data}
+                key={index}
+                id={data.id}
+                activeId={activeId}
+                setActiveId={setActiveId}
+              />
+            );
           })
         )}
       </div>

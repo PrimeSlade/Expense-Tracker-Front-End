@@ -9,7 +9,6 @@ export const useCreate = () => {
     note,
     created_at,
     cost,
-    icon_name,
     transaction_type,
   }) => {
     try {
@@ -20,7 +19,6 @@ export const useCreate = () => {
           note: note,
           created_at: created_at,
           cost: cost,
-          icon_name: icon_name,
           transaction_type: transaction_type,
         },
         { headers: { "Content-Type": "application/json" } }

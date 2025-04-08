@@ -131,7 +131,6 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
     //   data.note,
     //   data.date,
     //   data.cost,
-    //   iconFinder(data.category),
     //   data.type
     // );
     console.log(data);
