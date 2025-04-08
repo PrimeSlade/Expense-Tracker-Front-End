@@ -26,7 +26,7 @@ const List = ({ data, index }) => {
               <div>
                 <FontAwesomeIcon icon={faUser} />
               </div>
-              <h2>{data.categories}</h2>
+              <h2>{data.category}</h2>
             </div>
             <div className="font-bold">
               <span

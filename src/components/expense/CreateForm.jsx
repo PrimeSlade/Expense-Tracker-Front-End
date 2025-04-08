@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertBox from "../alertbox/AlertBox";
+import { useCreate } from "@/hook/useCreate";
 
 const categories = [
   "Income",
@@ -71,9 +72,8 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
     setIsHidden(true);
   };
 
-  const submit = (data) => {
-    console.log(data);
-    console.log(date);
+  const submit = async (data) => {
+    //const data = await useCreate(data.categories);
   };
 
   return (

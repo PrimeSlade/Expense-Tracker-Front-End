@@ -15,7 +15,7 @@ const CateAndDateInput = ({ control, categories, errors }) => {
       control={control}
       render={({ field }) => (
         <div>
-          <div className="font-bold text-white text-xl mb-4">Categories</div>
+          <div className="font-bold text-white text-xl mb-4">Category</div>
           <Select value={field.value} onValueChange={field.onChange}>
             <SelectTrigger className="w-[180px] bg-white font-bold">
               <SelectValue placeholder="Categories" />
