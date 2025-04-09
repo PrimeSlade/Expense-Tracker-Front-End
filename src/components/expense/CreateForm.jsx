@@ -104,7 +104,7 @@ const formSchema = z.object({
   note: z.string().optional(),
 });
 
-const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
+const CreateForm = ({ cost, type, category, note, setIsHidden, setDatas }) => {
   //date
   const [date, setDate] = useState(new Date());
   const { create, error, setError } = useCreate();
@@ -137,6 +137,11 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
       data.cost,
       data.type
     );
+
+    if (list.id) {
+      setIsHidden(true);
+      setDatas((data) => [list, ...data]);
+    }
   };
 
   return (

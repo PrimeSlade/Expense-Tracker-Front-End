@@ -7,7 +7,7 @@ import { useFetchData } from "@/hook/useFetchData";
 import List from "@/components/expense/List";
 
 const Expenses = () => {
-  const [datas, setDatas] = useState();
+  const [datas, setDatas] = useState([]);
   const { fetch, error } = useFetchData();
 
   const [isHidden, setIsHidden] = useState(true);
@@ -41,9 +41,9 @@ const Expenses = () => {
               : "opacity-100 scale-100 max-h-[500px]"
           }`}
         >
-          <CreateForm setIsHidden={setIsHidden} />
+          <CreateForm setIsHidden={setIsHidden} setDatas={setDatas} />
         </div>
-        {!datas ? (
+        {datas.length === 0 ? (
           <div className="font-bold text-4xl flex justify-center items-center mt-70">
             List Unavailable
           </div>
