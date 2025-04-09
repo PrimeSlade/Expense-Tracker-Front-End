@@ -105,6 +105,7 @@ const formSchema = z.object({
 const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
   //date
   const [date, setDate] = useState(new Date());
+  const { create, error } = useCreate();
 
   const {
     control,
@@ -126,14 +127,16 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
   };
 
   const submit = async (data) => {
-    // const list = await useCreate(
-    //   data.category,
-    //   data.note,
-    //   data.date,
-    //   data.cost,
-    //   data.type
-    // );
-    console.log(data);
+    const d = date.toDateString();
+
+    const list = await create(
+      data.category,
+      data.note,
+      d,
+      data.cost,
+      data.type
+    );
+    console.log(list);
   };
 
   return (

@@ -7,9 +7,10 @@ import { useFetchData } from "@/hook/useFetchData";
 import List from "@/components/expense/List";
 
 const Expenses = () => {
-  const [isHidden, setIsHidden] = useState(true);
   const [datas, setDatas] = useState();
   const { fetch, error } = useFetchData();
+
+  const [isHidden, setIsHidden] = useState(true);
   const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
