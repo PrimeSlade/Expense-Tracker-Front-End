@@ -5,12 +5,21 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "@/hook/useAuthConext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
+import { useDelete } from "@/hook/useDelete";
 
 const List = ({ data, activeId, setActiveId }) => {
   const { user } = useAuthContext();
 
   const onActive = (id) => {
     setActiveId((prevId) => (prevId === id ? null : id)); // have to use prev because useState is async
+  };
+
+  const { remove, error, setError } = useDelete();
+
+  const del = async (id) => {
+    console.log(id);
+    const mes = await remove(id);
+    console.log(mes);
   };
 
   return (
@@ -61,6 +70,9 @@ const List = ({ data, activeId, setActiveId }) => {
                 title={"Are you absolutely sure?"}
                 description={"This action cannot be undone."}
                 type={"button"}
+                onClick={() => {
+                  del(data.id);
+                }}
               />
               <Button type="submit" className={"bg-black text-white"}>
                 Edit
