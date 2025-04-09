@@ -158,14 +158,6 @@ const CreateForm = ({ cost, type, category, note, setIsHidden, setDatas }) => {
             />
             <DateInput date={date} setDate={setDate} />
             <NoteInput register={register} />
-
-            {error && (
-              <ErrorBox
-                error={error}
-                setError={setError}
-                errorText={"Error!"}
-              />
-            )}
             <div className="flex justify-end col-span-2 gap-3">
               <AlertBox
                 btn={"Cancel"}
@@ -186,6 +178,9 @@ const CreateForm = ({ cost, type, category, note, setIsHidden, setDatas }) => {
             </div>
           </div>
         </div>
+        {error && (
+          <ErrorBox error={error} setError={setError} errorText={"Error!"} />
+        )}
       </form>
     </>
   );

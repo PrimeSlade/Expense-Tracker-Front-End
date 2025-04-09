@@ -5,10 +5,11 @@ import { faTableList } from "@fortawesome/free-solid-svg-icons";
 import CreateForm from "@/components/expense/CreateForm";
 import { useFetchData } from "@/hook/useFetchData";
 import List from "@/components/expense/List";
+import ErrorBox from "@/components/expense/ErrorBox";
 
 const Expenses = () => {
   const [datas, setDatas] = useState([]);
-  const { fetch, error } = useFetchData();
+  const { fetch, error, setError } = useFetchData();
 
   const [isHidden, setIsHidden] = useState(true);
   const [activeId, setActiveId] = useState(null);
@@ -61,6 +62,10 @@ const Expenses = () => {
           })
         )}
       </div>
+      {/* Error box */}
+      {error && (
+        <ErrorBox setError={setError} error={error} errorText={"Error!"} />
+      )}
     </>
   );
 };

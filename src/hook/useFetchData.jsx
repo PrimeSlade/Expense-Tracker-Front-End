@@ -13,5 +13,5 @@ export const useFetchData = () => {
     }
   };
 
-  return { fetch, error };
+  return { fetch, error, setError };
 };
