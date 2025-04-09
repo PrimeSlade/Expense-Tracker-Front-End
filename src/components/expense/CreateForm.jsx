@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertBox from "../alertbox/AlertBox";
 import { useCreate } from "@/hook/useCreate";
+
 import {
   faMoneyBillWave,
   faHome,
@@ -36,6 +37,7 @@ import {
   faAmbulance,
   faPaw,
 } from "@fortawesome/free-solid-svg-icons";
+import ErrorBox from "./ErrorBox";
 
 // const categories = [
 //   { name: "Income", iconName: faMoneyBillWave },
@@ -105,7 +107,7 @@ const formSchema = z.object({
 const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
   //date
   const [date, setDate] = useState(new Date());
-  const { create, error } = useCreate();
+  const { create, error, setError } = useCreate();
 
   const {
     control,
@@ -128,7 +130,6 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
 
   const submit = async (data) => {
     const d = date.toDateString();
-
     const list = await create(
       data.category,
       data.note,
@@ -136,7 +137,6 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
       data.cost,
       data.type
     );
-    console.log(list);
   };
 
   return (
@@ -153,6 +153,14 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
             />
             <DateInput date={date} setDate={setDate} />
             <NoteInput register={register} />
+
+            {error && (
+              <ErrorBox
+                error={error}
+                setError={setError}
+                errorText={"Error!"}
+              />
+            )}
             <div className="flex justify-end col-span-2 gap-3">
               <AlertBox
                 btn={"Cancel"}
@@ -162,7 +170,6 @@ const CreateForm = ({ cost, type, category, note, setIsHidden }) => {
                 onClick={changeHidden}
                 type={"button"}
               />
-
               <Button
                 type="submit"
                 className={
