@@ -62,6 +62,15 @@ const Home = () => {
           className="w-full max-w-xs h-50 flex justify-center flex-col"
         >
           <CarouselContent className="-mt-1 h-[200px] gap-1">
+            {/* need to change color */}
+            <CarouselItem className="pt-1 md:basis-1/2">
+              <div className="flex items-center flex-col border-white p-3 rounded-2xl shadow bg-white">
+                <h2 className="text-gray-500">Total Amount</h2>
+                <h2 className="font-bold text-[var(--primary-color)] text-2xl">
+                  100k
+                </h2>
+              </div>
+            </CarouselItem>
             <CarouselItem className="md:basis-1/2">
               <div className="flex items-center flex-col border-white p-3 rounded-2xl shadow bg-white">
                 <h2 className="text-gray-500">Income</h2>
@@ -70,7 +79,6 @@ const Home = () => {
                 </h2>
               </div>
             </CarouselItem>
-
             <CarouselItem className="pt-1 md:basis-1/2">
               <div className="flex items-center flex-col border-white p-3 rounded-2xl shadow bg-white">
                 <h2 className="text-gray-500">Expense</h2>
