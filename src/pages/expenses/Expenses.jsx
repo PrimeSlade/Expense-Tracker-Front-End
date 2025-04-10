@@ -46,25 +46,27 @@ const Expenses = () => {
               : "opacity-100 scale-100 max-h-[500px]"
           }`}
         >
-          <CreateForm setIsHidden={setIsHidden} setDatas={setDatas} />
+          <CreateForm
+            setIsHidden={setIsHidden}
+            setDatas={setDatas}
+            btnName={"Create"}
+          />
         </div>
         {datas.length === 0 ? (
           <div className="font-bold text-4xl flex justify-center items-center mt-70">
             List Unavailable
           </div>
         ) : (
-          datas.map((data, index) => {
-            return (
-              <List
-                data={data}
-                key={index}
-                id={data.id}
-                activeId={activeId}
-                setActiveId={setActiveId}
-                setDatas={setDatas}
-              />
-            );
-          })
+          datas.map((data, index) => (
+            <List
+              data={data}
+              key={index}
+              id={data.id}
+              activeId={activeId}
+              setActiveId={setActiveId}
+              setDatas={setDatas}
+            />
+          ))
         )}
       </div>
       {/* Error box */}

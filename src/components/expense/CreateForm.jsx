@@ -111,7 +111,8 @@ const CreateForm = ({
   note,
   setIsHidden,
   setDatas,
-  mode,
+  mode = "create",
+  btnName,
 }) => {
   //date
   const [date, setDate] = useState(new Date());
@@ -181,7 +182,7 @@ const CreateForm = ({
                   "bg-white text-black hover:bg-gray-500 hover:text-white"
                 }
               >
-                Create
+                {btnName}
               </Button>
             </div>
           </div>
