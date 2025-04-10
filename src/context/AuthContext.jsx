@@ -1,3 +1,4 @@
+import { setupInterceptors } from "../../axiosInstance";
 import { createContext, useReducer, useEffect } from "react";
 
 export const AuthContext = createContext();
@@ -20,6 +21,8 @@ export const AuthContextProvider = ({ children }) => {
 
   //setting initial value when page is mounted
   useEffect(() => {
+    setupInterceptors(dispatch);
+
     const user = JSON.parse(localStorage.getItem("user"));
     dispatch({ type: "LOGIN", payload: user });
   }, []);

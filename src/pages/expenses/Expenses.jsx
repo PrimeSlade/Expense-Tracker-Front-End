@@ -18,7 +18,10 @@ const Expenses = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await fetch();
-      setDatas(data);
+
+      if (data) {
+        setDatas(data);
+      }
     };
 
     getData();
