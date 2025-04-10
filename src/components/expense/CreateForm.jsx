@@ -206,11 +206,11 @@ const CreateForm = ({
             </div>
           </div>
         </div>
-        {createError && (
+        {(createError || editError) && (
           // need to change TODO:
           <ErrorBox
-            error={createError}
-            setError={setCreateError}
+            error={mode === "create" ? createError : editError}
+            setError={mode === "create" ? setCreateError : setEditError}
             errorText={"Error!"}
           />
         )}
