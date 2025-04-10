@@ -2,7 +2,7 @@ import axiosInstance from "../../axiosInstance";
 import React, { useState } from "react";
 
 export const useCreate = () => {
-  const [error, setError] = useState(null);
+  const [createError, setCreateError] = useState(null);
 
   const create = async (category, note, created_at, cost, transaction_type) => {
     try {
@@ -21,9 +21,9 @@ export const useCreate = () => {
       return data;
     } catch (error) {
       console.log(error);
-      setError(error.response.data.error);
+      setCreateError(error.response.data.error);
     }
   };
 
-  return { create, error, setError };
+  return { create, createError, setCreateError };
 };

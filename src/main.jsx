@@ -5,14 +5,17 @@ import { BrowserRouter } from "react-router";
 import App from "./App.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { ActiveContextProvider } from "./context/ActiveContext";
+import { DataContextProvider } from "./context/DataContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthContextProvider>
       <ActiveContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <DataContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </DataContextProvider>
       </ActiveContextProvider>
     </AuthContextProvider>
   </StrictMode>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CostInput from "./CostInput";
 import CateInput from "./CateInput";
 import DateInput from "./DateInput";
@@ -38,6 +38,8 @@ import {
   faPaw,
 } from "@fortawesome/free-solid-svg-icons";
 import ErrorBox from "./ErrorBox";
+import { useEdit } from "@/hook/useEdit";
+import { DataContext } from "@/context/DataContext";
 
 // const categories = [
 //   { name: "Income", iconName: faMoneyBillWave },
@@ -105,18 +107,24 @@ const formSchema = z.object({
 });
 
 const CreateForm = ({
+  id,
   cost,
   type,
   category,
   note,
   setIsHidden,
-  setDatas,
+  setIsEdit,
   mode = "create",
   btnName,
 }) => {
   //date
   const [date, setDate] = useState(new Date());
-  const { create, error, setError } = useCreate();
+  const { create, createError, setCreateError } = useCreate();
+  const { edit, editError, setEditError } = useEdit();
+
+  const { datas, setDatas } = useContext(DataContext);
+
+  console.log(cost, type, category, note);
 
   const {
     control,
@@ -128,28 +136,39 @@ const CreateForm = ({
     defaultValues: {
       cost: cost || "",
       type: type || "",
-      categories: category || "",
+      category: category || "",
       note: note || "",
     },
   });
 
   const changeHidden = () => {
-    setIsHidden(true);
+    if (mode === "create") {
+      setIsHidden(true);
+    } else if (mode === "edit") {
+      setIsEdit(false);
+    }
   };
 
   const submit = async (data) => {
     const d = date.toDateString();
-    const list = await create(
-      data.category,
-      data.note,
-      d,
-      data.cost,
-      data.type
-    );
 
-    if (list.id) {
+    let list;
+
+    if (mode === "create") {
+      list = await create(data.category, data.note, d, data.cost, data.type);
+    } else {
+      list = await edit(id, data.category, data.note, d, data.cost, data.type);
+    }
+
+    if (list?.id && mode === "create") {
       setIsHidden(true);
       setDatas((data) => [list, ...data]);
+    } else {
+      setIsEdit(false);
+      const ds = [...datas];
+      const index = datas.findIndex((d) => d.id === id);
+      ds[index] = list;
+      setDatas(ds);
     }
   };
 
@@ -187,8 +206,13 @@ const CreateForm = ({
             </div>
           </div>
         </div>
-        {error && (
-          <ErrorBox error={error} setError={setError} errorText={"Error!"} />
+        {createError && (
+          // need to change TODO:
+          <ErrorBox
+            error={createError}
+            setError={setCreateError}
+            errorText={"Error!"}
+          />
         )}
       </form>
     </>

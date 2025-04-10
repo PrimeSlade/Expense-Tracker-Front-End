@@ -19,7 +19,7 @@ export const useEdit = () => {
           category: category,
           note: note,
           created_at: created_at,
-          cost: cost,
+          newCost: cost,
           transaction_type: transaction_type,
         },
         {

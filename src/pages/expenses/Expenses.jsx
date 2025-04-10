@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
 import CreateForm from "@/components/expense/CreateForm";
@@ -7,9 +7,10 @@ import { useFetchData } from "@/hook/useFetchData";
 import List from "@/components/expense/List";
 import ErrorBox from "@/components/expense/ErrorBox";
 import { Toaster } from "sonner";
+import { DataContext } from "@/context/DataContext";
 
 const Expenses = () => {
-  const [datas, setDatas] = useState([]);
+  const { datas, setDatas } = useContext(DataContext);
   const { fetch, error, setError } = useFetchData();
 
   const [isHidden, setIsHidden] = useState(true);
@@ -46,11 +47,7 @@ const Expenses = () => {
               : "opacity-100 scale-100 max-h-[500px]"
           }`}
         >
-          <CreateForm
-            setIsHidden={setIsHidden}
-            setDatas={setDatas}
-            btnName={"Create"}
-          />
+          <CreateForm setIsHidden={setIsHidden} btnName={"Create"} />
         </div>
         {datas.length === 0 ? (
           <div className="font-bold text-4xl flex justify-center items-center mt-70">
@@ -64,7 +61,6 @@ const Expenses = () => {
               id={data.id}
               activeId={activeId}
               setActiveId={setActiveId}
-              setDatas={setDatas}
             />
           ))
         )}

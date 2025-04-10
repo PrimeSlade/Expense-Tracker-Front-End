@@ -8,11 +8,13 @@ import { useDelete } from "@/hook/useDelete";
 import { toast } from "sonner";
 import ErrorBox from "./ErrorBox";
 import CreateForm from "./CreateForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { DataContext } from "@/context/DataContext";
 
-const List = ({ data, activeId, setActiveId, setDatas }) => {
+const List = ({ data, activeId, setActiveId }) => {
   const [isEdit, setIsEdit] = useState(false);
   const { user } = useAuthContext();
+  const { datas, setDatas } = useContext(DataContext);
 
   const onActive = (id) => {
     setActiveId((prevId) => (prevId === id ? null : id)); // have to use prev because useState is async
@@ -116,7 +118,16 @@ const List = ({ data, activeId, setActiveId, setDatas }) => {
             : "opacity-100 scale-100 max-h-[500px]"
         }`}
       >
-        <CreateForm btnName={"Save Changes"} />
+        <CreateForm
+          cost={data.cost}
+          type={data.transaction_type}
+          category={data.category}
+          note={data.note}
+          btnName={"Save Changes"}
+          setIsEdit={setIsEdit}
+          mode={"edit"}
+          id={activeId}
+        />
       </div>
     </>
   );
