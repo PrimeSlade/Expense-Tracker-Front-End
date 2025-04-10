@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertBox from "../alertbox/AlertBox";
 import { useCreate } from "@/hook/useCreate";
+import { toast } from "sonner";
 
 import {
   faMoneyBillWave,
@@ -169,6 +170,9 @@ const CreateForm = ({
       const index = datas.findIndex((d) => d.id === id);
       ds[index] = list;
       setDatas(ds);
+
+      //Activate
+      toast.success("Edit was successful");
     }
   };
 
@@ -207,7 +211,6 @@ const CreateForm = ({
           </div>
         </div>
         {(createError || editError) && (
-          // need to change TODO:
           <ErrorBox
             error={mode === "create" ? createError : editError}
             setError={mode === "create" ? setCreateError : setEditError}
