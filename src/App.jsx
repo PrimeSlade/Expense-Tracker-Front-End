@@ -15,13 +15,13 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={user ? <Main /> : <Navigate to="/login" />}>
+        <Route path="/" element={user ? <Main /> : <Navigate to="login" />}>
           {/* Default */}
-          <Route index element={<Navigate to="/home" />} />
+          <Route index element={<Navigate to="home" />} />
           {/* Children */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/expenses" element={<Expenses />} />
-          <Route path="/smartsave" element={<SmartSave />} />
+          <Route path="home" element={<Home />} />
+          <Route path="expenses" element={<Expenses />} />
+          <Route path="smartsave" element={<SmartSave />} />
         </Route>
         <Route
           path="/signup"

@@ -27,7 +27,7 @@ const NavBar = () => {
 
   const handleClick = (page) => {
     setActive(page);
-    navigate(`/${page.toLowerCase()}`);
+    navigate(`${page.toLowerCase()}`);
   };
 
   return (
