@@ -7,6 +7,7 @@ export const useDelete = () => {
   const remove = async (id) => {
     try {
       const { data } = await axiosInstance.delete(`/lists/${id}`);
+
       return data;
     } catch (error) {
       console.log(error.response.data.error);

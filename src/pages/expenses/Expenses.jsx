@@ -6,6 +6,7 @@ import CreateForm from "@/components/expense/CreateForm";
 import { useFetchData } from "@/hook/useFetchData";
 import List from "@/components/expense/List";
 import ErrorBox from "@/components/expense/ErrorBox";
+import { Toaster } from "sonner";
 
 const Expenses = () => {
   const [datas, setDatas] = useState([]);
@@ -57,6 +58,7 @@ const Expenses = () => {
                 id={data.id}
                 activeId={activeId}
                 setActiveId={setActiveId}
+                setDatas={setDatas}
               />
             );
           })
@@ -66,6 +68,7 @@ const Expenses = () => {
       {error && (
         <ErrorBox setError={setError} error={error} errorText={"Error!"} />
       )}
+      <Toaster richColors />
     </>
   );
 };

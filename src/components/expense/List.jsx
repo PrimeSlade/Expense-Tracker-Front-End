@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import AlertBox from "@/components/alertbox/AlertBox";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -6,8 +5,10 @@ import { useAuthContext } from "@/hook/useAuthConext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
 import { useDelete } from "@/hook/useDelete";
+import { toast } from "sonner";
+import ErrorBox from "./ErrorBox";
 
-const List = ({ data, activeId, setActiveId }) => {
+const List = ({ data, activeId, setActiveId, setDatas }) => {
   const { user } = useAuthContext();
 
   const onActive = (id) => {
@@ -17,9 +18,14 @@ const List = ({ data, activeId, setActiveId }) => {
   const { remove, error, setError } = useDelete();
 
   const del = async (id) => {
-    console.log(id);
     const mes = await remove(id);
-    console.log(mes);
+
+    if (mes) {
+      setDatas((d) => d.filter((data) => data.id !== id));
+
+      //Activate
+      toast.success("List has been Deleted");
+    }
   };
 
   return (
@@ -81,6 +87,9 @@ const List = ({ data, activeId, setActiveId }) => {
           </div>
         </div>
       </div>
+      {error && (
+        <ErrorBox error={error} setError={setError} errorText={"Error!"} />
+      )}
     </div>
   );
 };

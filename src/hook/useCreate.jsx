@@ -5,7 +5,6 @@ export const useCreate = () => {
   const [error, setError] = useState(null);
 
   const create = async (category, note, created_at, cost, transaction_type) => {
-    console.log(category, note, created_at, cost, transaction_type);
     try {
       const { data } = await axiosInstance.post(
         "/create",
