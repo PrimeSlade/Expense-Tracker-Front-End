@@ -33,6 +33,10 @@ const List = ({ data, activeId, setActiveId }) => {
     }
   };
 
+  const validDate = (date) => {
+    return date;
+  };
+
   return (
     <>
       <div
@@ -52,7 +56,7 @@ const List = ({ data, activeId, setActiveId }) => {
                 <div>
                   <FontAwesomeIcon icon={faUser} />
                 </div>
-                <h2>{data.category}</h2>
+                <h2 className="w-50 text-center">{data.category}</h2>
               </div>
               <div className="font-bold">
                 <span
@@ -69,7 +73,7 @@ const List = ({ data, activeId, setActiveId }) => {
               <Badge variant="outline" className={"font-bold w-30"}>
                 {data.transaction_type}
               </Badge>
-              <div>{data.created_at}</div>
+              <div>{validDate(data.created_at)}</div>
             </div>
             {/* I used Ai for animation.Ofc,I am not really good at making animation :> */}
 
