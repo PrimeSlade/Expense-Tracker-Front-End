@@ -10,6 +10,59 @@ import ErrorBox from "./ErrorBox";
 import CreateForm from "./CreateForm";
 import { useContext, useState } from "react";
 import { DataContext } from "@/context/DataContext";
+import {
+  faMoneyBillWave,
+  faHome,
+  faPlug,
+  faShoppingCart,
+  faCar,
+  faShieldAlt,
+  faUtensils,
+  faCookie,
+  faCouch,
+  faPhoneAlt,
+  faTv,
+  faLaptop,
+  faBriefcase,
+  faCreditCard,
+  faPiggyBank,
+  faBuilding,
+  faVideo,
+  faStore,
+  faDumbbell,
+  faBookOpen,
+  faGift,
+  faPlane,
+  faAmbulance,
+  faPaw,
+} from "@fortawesome/free-solid-svg-icons";
+
+const icons = {
+  Income: faMoneyBillWave,
+  Rent: faHome,
+  Utilities: faPlug,
+  Groceries: faShoppingCart,
+  Transportation: faCar,
+  Insurance: faShieldAlt,
+  "Dining Out": faUtensils,
+  Snacks: faCookie,
+  "Household Supplies": faCouch,
+  "Phone & Internet": faPhoneAlt,
+  "Streaming Services": faTv,
+  "Software & Apps": faLaptop,
+  "Work Expenses": faBriefcase,
+  "Debt Payments": faCreditCard,
+  "Savings & Investments": faPiggyBank,
+  "Bank Fees": faBuilding,
+  Entertainment: faVideo,
+  Shopping: faStore,
+  "Health & Fitness": faDumbbell,
+  Education: faBookOpen,
+  "Gifts & Donations": faGift,
+  Travel: faPlane,
+  Emergency: faAmbulance,
+  "Kids & Pets": faPaw,
+};
 
 const List = ({ data, activeId, setActiveId }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -54,7 +107,7 @@ const List = ({ data, activeId, setActiveId }) => {
             >
               <div className="flex gap-3">
                 <div>
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={icons[`${data.category}`]} />
                 </div>
                 <h2 className="w-50 text-center">{data.category}</h2>
               </div>

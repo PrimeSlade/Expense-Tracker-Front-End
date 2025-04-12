@@ -11,63 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AlertBox from "../alertbox/AlertBox";
 import { useCreate } from "@/hook/useCreate";
 import { toast } from "sonner";
-
-import {
-  faMoneyBillWave,
-  faHome,
-  faPlug,
-  faShoppingCart,
-  faCar,
-  faShieldAlt,
-  faUtensils,
-  faCookie,
-  faCouch,
-  faPhoneAlt,
-  faTv,
-  faLaptop,
-  faBriefcase,
-  faCreditCard,
-  faPiggyBank,
-  faBuilding,
-  faVideo,
-  faStore,
-  faDumbbell,
-  faBookOpen,
-  faGift,
-  faPlane,
-  faAmbulance,
-  faPaw,
-} from "@fortawesome/free-solid-svg-icons";
 import ErrorBox from "./ErrorBox";
 import { useEdit } from "@/hook/useEdit";
 import { DataContext } from "@/context/DataContext";
-
-// const categories = [
-//   { name: "Income", iconName: faMoneyBillWave },
-//   { name: "Rent", iconName: faHome },
-//   { name: "Utilities", iconName: faPlug },
-//   { name: "Groceries", iconName: faShoppingCart },
-//   { name: "Transportation", iconName: faCar },
-//   { name: "Insurance", iconName: faShieldAlt },
-//   { name: "Dining Out", iconName: faUtensils },
-//   { name: "Snacks", iconName: faCookie },
-//   { name: "Household Supplies", iconName: faCouch },
-//   { name: "Phone & Internet", iconName: faPhoneAlt },
-//   { name: "Streaming Services", iconName: faTv },
-//   { name: "Software & Apps", iconName: faLaptop },
-//   { name: "Work Expenses", iconName: faBriefcase },
-//   { name: "Debt Payments", iconName: faCreditCard },
-//   { name: "Savings & Investments", iconName: faPiggyBank },
-//   { name: "Bank Fees", iconName: faBuilding },
-//   { name: "Entertainment", iconName: faVideo },
-//   { name: "Shopping", iconName: faStore },
-//   { name: "Health & Fitness", iconName: faDumbbell },
-//   { name: "Education", iconName: faBookOpen },
-//   { name: "Gifts & Donations", iconName: faGift },
-//   { name: "Travel", iconName: faPlane },
-//   { name: "Emergency", iconName: faAmbulance },
-//   { name: "Kids & Pets", iconName: faPaw },
-// ];
 
 const categories = [
   "Income",
