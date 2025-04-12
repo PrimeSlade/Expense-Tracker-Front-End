@@ -8,11 +8,29 @@ import List from "@/components/expense/List";
 import ErrorBox from "@/components/expense/ErrorBox";
 import { Toaster } from "sonner";
 import { DataContext } from "@/context/DataContext";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Expenses = () => {
+  //data
   const { datas, setDatas } = useContext(DataContext);
+
+  //temp data (for sorting)
+  const [sortDatas, setSortDatas] = useState(datas);
+
+  //sort value
+  const [sortValue, setSortValue] = useState("default");
+
   const { fetch, error, setError } = useFetchData();
 
+  //form
   const [isHidden, setIsHidden] = useState(true);
   const [activeId, setActiveId] = useState(null);
 
@@ -28,10 +46,55 @@ const Expenses = () => {
     getData();
   }, []);
 
+  //sorting
+  const handleChange = (value) => {
+    setSortValue(value);
+
+    let sorted = [...datas];
+
+    if (value === "trx") {
+      console.log("trx");
+      sorted = sorted.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    } else if (value === "income") {
+      console.log("income");
+      sorted = sorted
+        .filter((d) => d.transaction_type === "Income")
+        .sort((a, b) => b.cost - a.cost);
+    } else if (value === "expense") {
+      console.log("expense");
+      sorted = sorted
+        .filter((d) => d.transaction_type === "Expense")
+        .sort((a, b) => b.cost - a.cost);
+    }
+    setSortDatas(sorted);
+  };
+
+  //for keeping update
+  useEffect(() => {
+    handleChange(sortValue);
+  }, [datas]);
+
   return (
     <>
       <div>
-        <div className="flex justify-end mt-5 mr-5">
+        <div className="flex justify-end mt-5 mr-10 gap-2">
+          <div>
+            <Select value={sortValue} onValueChange={handleChange}>
+              <SelectTrigger className="min-w-[80px] border-black">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="default">Sort</SelectItem>
+                  <SelectItem value="trx">Recent Transactions</SelectItem>
+                  <SelectItem value="income">Top Incomes</SelectItem>
+                  <SelectItem value="expense">Top Expenses</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
           <Button
             onClick={() => {
               setIsHidden(false);
@@ -54,7 +117,7 @@ const Expenses = () => {
             List Unavailable
           </div>
         ) : (
-          datas.map((data, index) => (
+          (sortValue === "default" ? datas : sortDatas).map((data, index) => (
             <List
               data={data}
               key={index}

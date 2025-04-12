@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CostInput from "./CostInput";
 import CateInput from "./CateInput";
 import DateInput from "./DateInput";
@@ -124,8 +124,6 @@ const CreateForm = ({
   const { edit, editError, setEditError } = useEdit();
 
   const { datas, setDatas } = useContext(DataContext);
-
-  console.log(cost, type, category, note);
 
   const {
     control,
