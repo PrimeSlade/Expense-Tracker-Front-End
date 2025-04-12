@@ -17,11 +17,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { ActiveContext } from "@/context/ActiveContext";
 
 const Expenses = () => {
   //data
   const { datas, setDatas } = useContext(DataContext);
+
+  //active
+  const { setActive } = useContext(ActiveContext);
 
   //temp data (for sorting)
   const [sortDatas, setSortDatas] = useState(datas);
@@ -43,6 +46,8 @@ const Expenses = () => {
         setDatas(data);
       }
     };
+
+    setActive("Expenses");
 
     getData();
   }, []);

@@ -3,7 +3,7 @@ import PolarAreaChart from "@/components/charts/PolarAreaChart";
 import VerticalBarChart from "@/components/charts/VerticalBarChart";
 import { Button } from "@/components/ui/button";
 import { ActiveContext } from "@/context/ActiveContext";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 import {
   Carousel,
@@ -17,6 +17,10 @@ const Home = () => {
   const { setActive } = useContext(ActiveContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setActive("Home");
+  }, []);
 
   return (
     <>
@@ -42,18 +46,6 @@ const Home = () => {
         </div>
       </div>
       <div className="flex justify-around mt-20 gap-5">
-        {/* <div className=" border h-50 bg-white shadow rounded-2xl min-w-80 pl-5 flex flex-col justify-center gap-3">
-          <div>
-            <h2 className="text-gray-500">Income</h2>
-            <h2 className="font-bold text-[var(--primary-color)] text-2xl">
-              1000k
-            </h2>
-          </div>
-          <div>
-            <h2 className="text-gray-500">Expense</h2>
-            <h2 className="font-bold text-red-600 text-2xl">2000k</h2>
-          </div>
-        </div> */}
         <Carousel
           opts={{
             align: "start",
