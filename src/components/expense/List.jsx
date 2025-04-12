@@ -87,7 +87,12 @@ const List = ({ data, activeId, setActiveId }) => {
   };
 
   const validDate = (date) => {
-    return date;
+    const d = new Date(date);
+    const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(d);
+    const day = d.getDate();
+    const year = d.getFullYear();
+
+    return `${day} ${month} ${year}`;
   };
 
   return (
