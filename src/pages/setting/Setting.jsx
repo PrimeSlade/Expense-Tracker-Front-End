@@ -5,13 +5,14 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputForm from "@/components/setting/Input";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faPen } from "@fortawesome/free-solid-svg-icons";
 import AlertBox from "@/components/alertbox/AlertBox";
 import { useEditInfos } from "@/hook/useEditInfos";
 import { Toaster } from "@/components/ui/sonner";
 import ErrorBox from "@/components/expense/ErrorBox";
 import { toast } from "sonner";
 import { useEditPassword } from "@/hook/useEditPassword";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Setting = () => {
   const { user, dispatch } = useAuthContext();
@@ -100,11 +101,15 @@ const Setting = () => {
     <>
       <div className="flex flex-col items-center mt-10">
         {/* Profile */}
-        <div>
-          <Avatar className={"w-24 h-auto"}>
+        <div className="relative w-24 h-24">
+          <Avatar className="w-full h-full">
             <AvatarImage src={user.img_url} alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
+          <FontAwesomeIcon
+            icon={faPen}
+            className="absolute bottom-1 right-1 bg-white p-2 rounded-full text-gray-600 text-xs shadow hover:bg-black hover:text-white"
+          />
         </div>
 
         {/* Infos */}
@@ -165,7 +170,6 @@ const Setting = () => {
                 {passErrors.oldPassword.message}
               </p>
             )}
-
             <InputForm
               type={showPassword ? "text" : "password"}
               title={"New Password"}
