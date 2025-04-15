@@ -75,7 +75,7 @@ const CreateForm = ({
     control,
     register,
     handleSubmit,
-    reset,
+    reset, //will reset the default value
     formState: { errors },
   } = useForm({
     resolver: zodResolver(formSchema),
