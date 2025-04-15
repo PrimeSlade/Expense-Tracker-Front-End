@@ -131,7 +131,9 @@ const List = ({ data, activeId, setActiveId }) => {
               <Badge variant="outline" className={"font-bold w-30"}>
                 {data.transaction_type}
               </Badge>
-              <div>{validDate(data.created_at)}</div>
+              <div className="w-50 text-center">
+                {validDate(data.created_at)}
+              </div>
             </div>
             {/* I used Ai for animation.Ofc,I am not really good at making animation :> */}
 

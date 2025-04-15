@@ -94,7 +94,7 @@ const CreateForm = ({
     }
   };
 
-  const submit = async (data) => {
+  const onSubmit = async (data) => {
     const d = date.toDateString();
 
     let list;
@@ -122,7 +122,7 @@ const CreateForm = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit(submit)}>
+      <form action="submit" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-center mb-5">
           <div className="border w-230 mt-7 rounded-xl h-auto p-10 bg-black grid grid-cols-2 gap-5">
             <CostInput register={register} errors={errors} />
