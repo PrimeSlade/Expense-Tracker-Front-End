@@ -9,13 +9,16 @@ import InputForm from "@/components/setting/Input";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { data } from "react-router";
 import AlertBox from "@/components/alertbox/AlertBox";
+import { useEditInfos } from "@/hook/useEditInfos";
+import { Toaster } from "@/components/ui/sonner";
 
 const Setting = () => {
   const { user } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
+  const { editInfo, infoError, setInfoError } = useEditInfos();
 
   const userSchema = z.object({
-    username: z.string(),
+    name: z.string(),
     email: z.string().email(),
   });
 
@@ -35,7 +38,7 @@ const Setting = () => {
   } = useForm({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      username: user.name,
+      name: user.name,
       email: user.email,
     },
   });
@@ -50,6 +53,9 @@ const Setting = () => {
 
   const onSubmitInfos = async (data) => {
     console.log(data);
+    const user = await editInfo(data.name, data.email);
+
+    console.log(user);
   };
 
   const onSubmitPass = async (data) => {
@@ -77,9 +83,9 @@ const Setting = () => {
               register={registerInfos}
               schema={"username"}
             />
-            {infosErrors.username && (
+            {infosErrors.name && (
               <p className="text-red-500 text-sm mb-1 mt-2">
-                {infosErrors.username.message}
+                {infosErrors.name.message}
               </p>
             )}
 
@@ -156,6 +162,13 @@ const Setting = () => {
             </div>
           </div>
         </form>
+        {/* Error box */}
+        {/* <ErrorBox
+          error={mode === "create" ? createError : editError}
+          setError={mode === "create" ? setCreateError : setEditError}
+          errorText={"Error!"}
+        /> */}
+        <Toaster richColors />
       </div>
     </>
   );
