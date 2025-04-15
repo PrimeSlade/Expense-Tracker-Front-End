@@ -4,16 +4,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
 import InputForm from "@/components/setting/Input";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { data } from "react-router";
 import AlertBox from "@/components/alertbox/AlertBox";
 import { useEditInfos } from "@/hook/useEditInfos";
 import { Toaster } from "@/components/ui/sonner";
+import ErrorBox from "@/components/expense/ErrorBox";
 
 const Setting = () => {
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
   const { editInfo, infoError, setInfoError } = useEditInfos();
 
@@ -52,10 +51,19 @@ const Setting = () => {
   });
 
   const onSubmitInfos = async (data) => {
-    console.log(data);
-    const user = await editInfo(data.name, data.email);
+    if (user.name === data.name && user.email === data.email) {
+      setInfoError(
+        "Looks like your info is still the same. Make some changes first!"
+      );
+      return;
+    }
+    const newInfos = await editInfo(data.name, data.email);
+    console.log(newInfos);
 
-    console.log(user);
+    if (newInfos?.id) {
+      dispatch({ type: "LOGOUT" });
+      localStorage.removeItem("user");
+    }
   };
 
   const onSubmitPass = async (data) => {
@@ -81,7 +89,7 @@ const Setting = () => {
               type={"text"}
               title={"Username"}
               register={registerInfos}
-              schema={"username"}
+              schema={"name"}
             />
             {infosErrors.name && (
               <p className="text-red-500 text-sm mb-1 mt-2">
@@ -163,11 +171,14 @@ const Setting = () => {
           </div>
         </form>
         {/* Error box */}
-        {/* <ErrorBox
-          error={mode === "create" ? createError : editError}
-          setError={mode === "create" ? setCreateError : setEditError}
-          errorText={"Error!"}
-        /> */}
+        {infoError && (
+          <ErrorBox
+            error={infoError}
+            setError={setInfoError}
+            errorText={"Error!"}
+          />
+        )}
+
         <Toaster richColors />
       </div>
     </>

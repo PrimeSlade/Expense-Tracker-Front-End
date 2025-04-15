@@ -6,7 +6,7 @@ export const useEditInfos = () => {
 
   const editInfo = async (name, email) => {
     try {
-      const { data } = axiosInstance.put(
+      const { data } = await axiosInstance.put(
         "/user",
         {
           name: name,
