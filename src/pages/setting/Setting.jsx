@@ -11,11 +11,14 @@ import { useEditInfos } from "@/hook/useEditInfos";
 import { Toaster } from "@/components/ui/sonner";
 import ErrorBox from "@/components/expense/ErrorBox";
 import { toast } from "sonner";
+import { useEditPassword } from "@/hook/useEditPassword";
 
 const Setting = () => {
   const { user, dispatch } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
+
   const { editInfo, infoError, setInfoError } = useEditInfos();
+  const { editPass, passError, setPassError } = useEditPassword();
 
   const userSchema = z.object({
     name: z.string(),
@@ -51,6 +54,7 @@ const Setting = () => {
     resolver: zodResolver(passwordSchema),
   });
 
+  //User
   const onSubmitInfos = async (data) => {
     if (user.name === data.name && user.email === data.email) {
       setInfoError(
@@ -59,10 +63,9 @@ const Setting = () => {
       return;
     }
     const newInfos = await editInfo(data.name, data.email);
-    console.log(newInfos);
 
-    if (newInfos?.id) {
-      toast.success("Your info has been changed");
+    if (newInfos) {
+      toast.success(newInfos);
 
       //will trigger after 3s
       setTimeout(() => {
@@ -72,8 +75,25 @@ const Setting = () => {
     }
   };
 
+  //Password
   const onSubmitPass = async (data) => {
-    console.log(data);
+    if (data.oldPassword === data.newPassword) {
+      setPassError(
+        "Looks like your passwords are the same. Make some changes first!"
+      );
+      return;
+    }
+    const newPass = await editPass(data.oldPassword, data.newPassword);
+
+    if (newPass) {
+      toast.success(newPass);
+
+      //will trigger after 3s
+      setTimeout(() => {
+        dispatch({ type: "LOGOUT" });
+        localStorage.removeItem("user");
+      }, 3000);
+    }
   };
 
   return (
@@ -177,10 +197,10 @@ const Setting = () => {
           </div>
         </form>
         {/* Error box */}
-        {infoError && (
+        {(infoError || passError) && (
           <ErrorBox
-            error={infoError}
-            setError={setInfoError}
+            error={infoError ? infoError : passError}
+            setError={infoError ? setInfoError : setPassError}
             errorText={"Error!"}
           />
         )}
