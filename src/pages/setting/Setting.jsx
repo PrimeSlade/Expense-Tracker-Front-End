@@ -15,18 +15,18 @@ const Setting = () => {
   const userSchema = z.object({
     username: z.string(),
     email: z.string().email(),
-    oldPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters long"),
-    newPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters long"),
+    // oldPassword: z
+    //   .string()
+    //   .min(6, "Password must be at least 6 characters long"),
+    // newPassword: z
+    //   .string()
+    //   .min(6, "Password must be at least 6 characters long"),
   });
 
   const {
-    register,
-    formState: { errors },
-    handleSubmit,
+    register: registerInfos,
+    formState: { errors: infosErrors },
+    handleSubmit: handleInfosSubmit,
   } = useForm({
     resolver: zodResolver(userSchema),
     defaultValues: {
@@ -35,7 +35,7 @@ const Setting = () => {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmitInfos = async (data) => {
     console.log(data);
   };
 
@@ -48,19 +48,19 @@ const Setting = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
-        <div className="border-b w-100 font-bold mt-10">User infos</div>
-        <form action="submit" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col mt-5">
+        <div className="border-b w-100 font-bold mt-10 mb-5">User infos</div>
+        <form action="submit" onSubmit={handleInfosSubmit(onSubmitInfos)}>
+          <div className="flex flex-col ">
             <div>
               <InputForm
                 type={"text"}
                 title={"Username"}
-                register={register}
+                register={registerInfos}
                 schema={"username"}
               />
-              {errors.username && (
+              {infosErrors.username && (
                 <p className="text-red-500 text-sm mb-1 mt-2">
-                  {errors.username.message}
+                  {infosErrors.username.message}
                 </p>
               )}
             </div>
@@ -68,54 +68,53 @@ const Setting = () => {
               <InputForm
                 type={"email"}
                 title={"Email"}
-                register={register}
+                register={registerInfos}
                 schema={"email"}
               />
-              {errors.email && (
+              {infosErrors.email && (
                 <p className="text-red-500 text-sm mb-1 mt-2">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <InputForm
-                type={"password"}
-                title={"Old Password"}
-                register={register}
-                schema={"oldPassword"}
-                placeholder={"Your old password"}
-              />
-              {errors.oldPassword && (
-                <p className="text-red-500 text-sm mb-1">
-                  {errors.oldPassword.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <InputForm
-                type={showPassword ? "text" : "password"}
-                title={"New Password"}
-                register={register}
-                schema={"newPassword"}
-                toggleIcon={showPassword ? faEye : faEyeSlash}
-                onToggle={() => {
-                  setShowPassword((p) => !p);
-                }}
-                placeholder={"Your new password"}
-              />
-              {errors.newPassword && (
-                <p className="text-red-500 text-sm mb-1 mt-2">
-                  {errors.newPassword.message}
+                  {infosErrors.email.message}
                 </p>
               )}
             </div>
           </div>
-          <Button type="submit">Save Changes</Button>
+          <Button type="submit" className={"mt-3"}>
+            Save Changes
+          </Button>
         </form>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div className="border-b w-100 font-bold mt-2 mb-5">Password</div>
+        {/* <div>
+          <InputForm
+            type={"password"}
+            title={"Old Password"}
+            register={register}
+            schema={"oldPassword"}
+            placeholder={"Your old password"}
+          />
+          {errors.oldPassword && (
+            <p className="text-red-500 text-sm mb-1">
+              {errors.oldPassword.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <InputForm
+            type={showPassword ? "text" : "password"}
+            title={"New Password"}
+            register={register}
+            schema={"newPassword"}
+            toggleIcon={showPassword ? faEye : faEyeSlash}
+            onToggle={() => {
+              setShowPassword((p) => !p);
+            }}
+            placeholder={"Your new password"}
+          />
+          {errors.newPassword && (
+            <p className="text-red-500 text-sm mb-1 mt-2">
+              {errors.newPassword.message}
+            </p>
+          )}
+        </div> */}
       </div>
     </>
   );
