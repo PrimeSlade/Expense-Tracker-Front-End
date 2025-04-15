@@ -10,6 +10,7 @@ import AlertBox from "@/components/alertbox/AlertBox";
 import { useEditInfos } from "@/hook/useEditInfos";
 import { Toaster } from "@/components/ui/sonner";
 import ErrorBox from "@/components/expense/ErrorBox";
+import { toast } from "sonner";
 
 const Setting = () => {
   const { user, dispatch } = useAuthContext();
@@ -61,8 +62,13 @@ const Setting = () => {
     console.log(newInfos);
 
     if (newInfos?.id) {
-      dispatch({ type: "LOGOUT" });
-      localStorage.removeItem("user");
+      toast.success("Your info has been changed");
+
+      //will trigger after 3s
+      setTimeout(() => {
+        dispatch({ type: "LOGOUT" });
+        localStorage.removeItem("user");
+      }, 3000);
     }
   };
 
