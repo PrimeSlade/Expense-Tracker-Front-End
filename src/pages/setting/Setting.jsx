@@ -72,7 +72,7 @@ const Setting = () => {
       setTimeout(() => {
         dispatch({ type: "LOGOUT" });
         localStorage.removeItem("user");
-      }, 3000);
+      }, 2000);
     }
   };
 
@@ -93,7 +93,7 @@ const Setting = () => {
       setTimeout(() => {
         dispatch({ type: "LOGOUT" });
         localStorage.removeItem("user");
-      }, 3000);
+      }, 2000);
     }
   };
 
@@ -106,12 +106,21 @@ const Setting = () => {
             <AvatarImage src={user.img_url} alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <FontAwesomeIcon
-            icon={faPen}
-            className="absolute bottom-1 right-1 bg-white p-2 rounded-full text-gray-600 text-xs shadow hover:bg-black hover:text-white"
+          <label htmlFor="avatarUpload">
+            <FontAwesomeIcon
+              icon={faPen}
+              className="absolute bottom-1 right-1 bg-white p-2 rounded-full text-gray-600 text-xs shadow hover:bg-black hover:text-white cursor-pointer"
+            />
+          </label>
+          <input
+            type="file"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              console.log("Selected file:", file);
+            }}
           />
         </div>
-
         {/* Infos */}
         <form action="submit" onSubmit={handleInfosSubmit(onSubmitInfos)}>
           <div className="border-b w-100 font-bold mt-10 mb-5">User infos</div>

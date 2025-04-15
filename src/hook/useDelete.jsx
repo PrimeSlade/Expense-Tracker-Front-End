@@ -6,7 +6,7 @@ export const useDelete = () => {
 
   const remove = async (id) => {
     try {
-      const { data } = await axiosInstance.delete(`/lists/${id}`);
+      const { data } = await axiosInstance.delete(`/lists/remove/${id}`);
 
       return data;
     } catch (error) {

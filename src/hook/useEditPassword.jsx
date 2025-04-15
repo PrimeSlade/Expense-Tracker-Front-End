@@ -7,7 +7,7 @@ export const useEditPassword = () => {
   const editPass = async (oldPassword, newPassword) => {
     try {
       const { data } = await axiosInstance.put(
-        "/password",
+        "/user/password",
         {
           oldPassword: oldPassword,
           newPassword: newPassword,

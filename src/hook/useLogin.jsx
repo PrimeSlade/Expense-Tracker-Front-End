@@ -17,7 +17,7 @@ export const useLogin = () => {
       setError(null);
 
       const { data } = await axiosInstance.post(
-        "/login",
+        "/api/auth/login",
         {
           email: email,
           password: password,

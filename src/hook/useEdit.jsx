@@ -14,7 +14,7 @@ export const useEdit = () => {
   ) => {
     try {
       const { data } = await axiosInstance.put(
-        `/lists/${id}`,
+        `/lists/update/${id}`,
         {
           category: category,
           note: note,

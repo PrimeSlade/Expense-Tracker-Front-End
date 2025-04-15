@@ -163,6 +163,7 @@ const List = ({ data, activeId, setActiveId }) => {
                   className={"bg-black text-white"}
                   onClick={() => {
                     setIsEdit(true);
+                    console.log(data);
                   }}
                 >
                   Edit
@@ -175,6 +176,7 @@ const List = ({ data, activeId, setActiveId }) => {
           <ErrorBox error={error} setError={setError} errorText={"Error!"} />
         )}
       </div>
+      {/* Edit form */}
       <div
         className={`transition-all duration-300 ease-out transform ${
           !isEdit

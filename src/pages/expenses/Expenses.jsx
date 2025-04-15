@@ -18,10 +18,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ActiveContext } from "@/context/ActiveContext";
+import { useAuthContext } from "@/hook/useAuthConext";
 
 const Expenses = () => {
   //data
   const { datas, setDatas } = useContext(DataContext);
+
+  //user
+  const { user } = useAuthContext();
 
   //active
   const { setActive } = useContext(ActiveContext);
@@ -50,7 +54,7 @@ const Expenses = () => {
     setActive("Expenses");
 
     getData();
-  }, []);
+  }, [user]);
 
   //sorting
   const handleChange = (value) => {

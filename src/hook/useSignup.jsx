@@ -17,16 +17,9 @@ export const useSignup = () => {
       return;
     }
 
-    //fetch
-    // const res = await fetch("http://localhost:3000/signup", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ name: name, email: email, password: password }),
-    // });
-
     try {
       const { data } = await axiosInstance.post(
-        "/signup",
+        "/api/auth/signup",
         {
           name: name,
           email: email,

@@ -7,7 +7,7 @@ export const useCreate = () => {
   const create = async (category, note, created_at, cost, transaction_type) => {
     try {
       const { data } = await axiosInstance.post(
-        "/create",
+        "/lists/create",
         {
           category: category,
           note: note,

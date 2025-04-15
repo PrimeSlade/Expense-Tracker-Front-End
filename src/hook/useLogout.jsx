@@ -7,7 +7,7 @@ export const useLogout = () => {
 
   const logout = async () => {
     try {
-      await axiosInstance.post("/logout", {
+      await axiosInstance.post("/api/auth/logout", {
         headers: { "Content-Type": "application/json" },
       });
 

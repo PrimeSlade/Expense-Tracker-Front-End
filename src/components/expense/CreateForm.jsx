@@ -75,6 +75,7 @@ const CreateForm = ({
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(formSchema),
@@ -119,6 +120,15 @@ const CreateForm = ({
       toast.success("Edit was successful");
     }
   };
+
+  useEffect(() => {
+    reset({
+      cost: cost || "",
+      type: type || "",
+      category: category || "",
+      note: note || "",
+    });
+  }, [cost, type, category, note, reset]);
 
   return (
     <>
