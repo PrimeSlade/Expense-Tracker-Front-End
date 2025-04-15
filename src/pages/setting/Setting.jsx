@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import InputForm from "@/components/setting/Input";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { data } from "react-router";
+import AlertBox from "@/components/alertbox/AlertBox";
 
 const Setting = () => {
   const { user } = useAuthContext();
@@ -15,12 +17,15 @@ const Setting = () => {
   const userSchema = z.object({
     username: z.string(),
     email: z.string().email(),
-    // oldPassword: z
-    //   .string()
-    //   .min(6, "Password must be at least 6 characters long"),
-    // newPassword: z
-    //   .string()
-    //   .min(6, "Password must be at least 6 characters long"),
+  });
+
+  const passwordSchema = z.object({
+    oldPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters long"),
+    newPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters long"),
   });
 
   const {
@@ -35,86 +40,122 @@ const Setting = () => {
     },
   });
 
+  const {
+    register: registerPass,
+    formState: { errors: passErrors },
+    handleSubmit: handlePassSubmit,
+  } = useForm({
+    resolver: zodResolver(passwordSchema),
+  });
+
   const onSubmitInfos = async (data) => {
+    console.log(data);
+  };
+
+  const onSubmitPass = async (data) => {
     console.log(data);
   };
 
   return (
     <>
       <div className="flex flex-col items-center mt-10">
+        {/* Profile */}
         <div>
           <Avatar className={"w-24 h-auto"}>
             <AvatarImage src={user.img_url} alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
-        <div className="border-b w-100 font-bold mt-10 mb-5">User infos</div>
+
+        {/* Infos */}
         <form action="submit" onSubmit={handleInfosSubmit(onSubmitInfos)}>
-          <div className="flex flex-col ">
-            <div>
-              <InputForm
-                type={"text"}
-                title={"Username"}
-                register={registerInfos}
-                schema={"username"}
+          <div className="border-b w-100 font-bold mt-10 mb-5">User infos</div>
+          <div className="flex items-center flex-col">
+            <InputForm
+              type={"text"}
+              title={"Username"}
+              register={registerInfos}
+              schema={"username"}
+            />
+            {infosErrors.username && (
+              <p className="text-red-500 text-sm mb-1 mt-2">
+                {infosErrors.username.message}
+              </p>
+            )}
+
+            <InputForm
+              type={"email"}
+              title={"Email"}
+              register={registerInfos}
+              schema={"email"}
+            />
+            {infosErrors.email && (
+              <p className="text-red-500 text-sm mb-1 mt-2">
+                {infosErrors.email.message}
+              </p>
+            )}
+            <div className="flex justify-start w-85">
+              <AlertBox
+                btn={"Save Changes"}
+                btnClassName={"border border-white mt-2"}
+                title={"Are you absolutely sure?"}
+                description={"This action cannot be undone."}
+                type={"button"}
+                onClick={() => {
+                  handleInfosSubmit(onSubmitInfos)(); //call back func
+                }}
               />
-              {infosErrors.username && (
-                <p className="text-red-500 text-sm mb-1 mt-2">
-                  {infosErrors.username.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <InputForm
-                type={"email"}
-                title={"Email"}
-                register={registerInfos}
-                schema={"email"}
-              />
-              {infosErrors.email && (
-                <p className="text-red-500 text-sm mb-1 mt-2">
-                  {infosErrors.email.message}
-                </p>
-              )}
             </div>
           </div>
-          <Button type="submit" className={"mt-3"}>
-            Save Changes
-          </Button>
         </form>
-        <div className="border-b w-100 font-bold mt-2 mb-5">Password</div>
-        {/* <div>
-          <InputForm
-            type={"password"}
-            title={"Old Password"}
-            register={register}
-            schema={"oldPassword"}
-            placeholder={"Your old password"}
-          />
-          {errors.oldPassword && (
-            <p className="text-red-500 text-sm mb-1">
-              {errors.oldPassword.message}
-            </p>
-          )}
-        </div>
-        <div>
-          <InputForm
-            type={showPassword ? "text" : "password"}
-            title={"New Password"}
-            register={register}
-            schema={"newPassword"}
-            toggleIcon={showPassword ? faEye : faEyeSlash}
-            onToggle={() => {
-              setShowPassword((p) => !p);
-            }}
-            placeholder={"Your new password"}
-          />
-          {errors.newPassword && (
-            <p className="text-red-500 text-sm mb-1 mt-2">
-              {errors.newPassword.message}
-            </p>
-          )}
-        </div> */}
+
+        {/* Password */}
+        <form action="submit" onSubmit={handlePassSubmit(onSubmitPass)}>
+          <div className="border-b w-100 font-bold mt-10 mb-5">Password</div>
+          <div className="flex items-center flex-col">
+            <InputForm
+              type={"password"}
+              title={"Old Password"}
+              register={registerPass}
+              schema={"oldPassword"}
+              placeholder={"Your old password"}
+            />
+            {passErrors.oldPassword && (
+              <p className="text-red-500 text-sm mb-1">
+                {passErrors.oldPassword.message}
+              </p>
+            )}
+
+            <InputForm
+              type={showPassword ? "text" : "password"}
+              title={"New Password"}
+              register={registerPass}
+              schema={"newPassword"}
+              toggleIcon={showPassword ? faEye : faEyeSlash}
+              onToggle={() => {
+                setShowPassword((p) => !p);
+              }}
+              placeholder={"Your new password"}
+            />
+            {passErrors.newPassword && (
+              <p className="text-red-500 text-sm mb-1 mt-2">
+                {passErrors.newPassword.message}
+              </p>
+            )}
+            <div className="flex justify-start w-85">
+              <AlertBox
+                btn={"Save Changes"}
+                btnClassName={"border border-white mt-2"}
+                title={"Are you absolutely sure?"}
+                description={"This action cannot be undone."}
+                type={"button"}
+                onClick={() => {
+                  handlePassSubmit(onSubmitPass)(); //call back func
+                }}
+              />
+            </div>
+          </div>
+        </form>
       </div>
     </>
   );

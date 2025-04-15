@@ -13,9 +13,9 @@ const InputForm = ({
   onToggle,
 }) => {
   return (
-    <div>
+    <div className=" lg:w-85 w-70">
       <label className="text-black text-sm mb-4">{title}</label>
-      <div className="border-1 border-gray-300 rounded-lg flex px-4 py-1 mb-2 items-center hover:border-[var(--primary-color)]">
+      <div className="border-1 border-gray-300 rounded-lg flex px-5 py-1 mb-2 items-center hover:border-[var(--primary-color)]">
         <Input
           type={type}
           placeholder={placeholder}
