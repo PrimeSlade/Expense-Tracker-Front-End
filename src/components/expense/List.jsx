@@ -163,7 +163,6 @@ const List = ({ data, activeId, setActiveId }) => {
                   className={"bg-black text-white"}
                   onClick={() => {
                     setIsEdit(true);
-                    console.log(data);
                   }}
                 >
                   Edit

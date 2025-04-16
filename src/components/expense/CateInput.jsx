@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/select";
 import { Controller } from "react-hook-form";
 
-const CateAndDateInput = ({ control, categories, errors }) => {
+const CateInput = ({ control, categories, errors, name }) => {
   return (
     <Controller
-      name="category"
+      name={`${name.toLowerCase()}`}
       control={control}
       render={({ field }) => (
         <div>
-          <div className="font-bold text-white text-xl mb-4">Category</div>
+          <div className="font-bold text-white text-xl mb-4">{name}</div>
           <Select value={field.value} onValueChange={field.onChange}>
             <SelectTrigger className="w-[180px] bg-white font-bold">
               <SelectValue placeholder="Categories" />
@@ -37,4 +37,4 @@ const CateAndDateInput = ({ control, categories, errors }) => {
   );
 };
 
-export default CateAndDateInput;
+export default CateInput;

@@ -42,17 +42,6 @@ const categories = [
   "Kids & Pets",
 ];
 
-const formSchema = z.object({
-  cost: z.number().positive("Cost must be positive"),
-  type: z.enum(["Income", "Expense"], {
-    errorMap: () => ({ message: "Select a valid type" }),
-  }),
-  category: z.enum(categories, {
-    errorMap: () => ({ message: "Select a valid category" }),
-  }),
-  note: z.string().optional(),
-});
-
 const CreateForm = ({
   id,
   cost,
@@ -70,6 +59,17 @@ const CreateForm = ({
   const { edit, editError, setEditError } = useEdit();
 
   const { datas, setDatas } = useContext(DataContext);
+
+  const formSchema = z.object({
+    cost: z.number().positive("Cost must be positive"),
+    type: z.enum(["Income", "Expense"], {
+      errorMap: () => ({ message: "Select a valid type" }),
+    }),
+    category: z.enum(categories, {
+      errorMap: () => ({ message: "Select a valid category" }),
+    }),
+    note: z.string().optional(),
+  });
 
   const {
     control,
@@ -141,6 +141,7 @@ const CreateForm = ({
               control={control}
               categories={categories}
               errors={errors}
+              name={"Category"}
             />
             <DateInput date={date} setDate={setDate} />
             <NoteInput register={register} />
