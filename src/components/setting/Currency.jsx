@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,7 @@ import AlertBox from "../alertbox/AlertBox";
 import { useUpdateCurrency } from "@/hook/useUpdateCurrency";
 import ErrorBox from "@/components/expense/ErrorBox";
 import { toast } from "sonner";
+import { DataContext } from "@/context/DataContext";
 
 const currencies = [
   "USD", // US Dollar
@@ -26,6 +27,8 @@ const Currency = () => {
   const { update, error, setError } = useUpdateCurrency();
 
   const { user } = useAuthContext();
+  const { amount } = useContext(DataContext);
+  console.log(amount);
 
   const currencySchema = z.object({
     currency: z.enum(currencies, {
@@ -69,7 +72,19 @@ const Currency = () => {
     <>
       <form action="submit" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex  flex-col">
-          <div className="border-b w-100 font-bold mt-10 ">Currency</div>
+          <div className="border-b w-100 font-bold mt-10 flex justify-between">
+            <div>Currency</div>
+            <div>
+              <span
+                className={`${
+                  amount > 0 ? "text-[var(--primary-color)]" : "text-red-600"
+                }`}
+              >
+                {amount}
+              </span>{" "}
+              {user.currency}
+            </div>
+          </div>
           <CateInput
             control={control}
             categories={currencies}
