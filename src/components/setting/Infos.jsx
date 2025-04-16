@@ -42,12 +42,6 @@ const Infos = () => {
 
     if (newInfos) {
       toast.success(newInfos);
-
-      //will trigger after 3s
-      setTimeout(() => {
-        dispatch({ type: "LOGOUT" });
-        localStorage.removeItem("user");
-      }, 2000);
     }
   };
 

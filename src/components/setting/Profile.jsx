@@ -4,10 +4,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { useUplodeProfile } from "@/hook/useUplodeProfile";
 import { useAuthContext } from "@/hook/useAuthConext";
+import { toast } from "sonner";
 
 const Profile = () => {
   const { uplodePfp, profileError, setProfileError } = useUplodeProfile();
   const { user, dispatch } = useAuthContext();
+
+  const onUploadeImg = async (file) => {
+    let res;
+
+    const promise = async () => {
+      const data = await uplodePfp(file);
+      res = data;
+      return data;
+    };
+
+    toast.promise(promise(), {
+      //promise not func that's why
+      loading: "Uploading...",
+      success: (data) => {
+        return `Your profile has been changed`;
+      },
+      error: "Error",
+    });
+
+    console.log(res);
+    if (res.id) {
+      localStorage.setItem("user");
+    }
+  };
 
   return (
     <>

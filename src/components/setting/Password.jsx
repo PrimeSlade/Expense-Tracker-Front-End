@@ -44,12 +44,6 @@ const Password = () => {
 
     if (newPass) {
       toast.success(newPass);
-
-      //will trigger after 3s
-      setTimeout(() => {
-        dispatch({ type: "LOGOUT" });
-        localStorage.removeItem("user");
-      }, 2000);
     }
   };
   return (

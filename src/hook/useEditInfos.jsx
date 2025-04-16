@@ -1,8 +1,10 @@
 import axiosInstance from "../../axiosInstance";
 import React, { useState } from "react";
+import { useAuthContext } from "./useAuthConext";
 
 export const useEditInfos = () => {
   const [infoError, setInfoError] = useState();
+  const { user, dispatch } = useAuthContext();
 
   const editInfo = async (name, email) => {
     try {
@@ -14,6 +16,12 @@ export const useEditInfos = () => {
         },
         { headers: { "Content-Type": "application/json" } }
       );
+
+      //will trigger after 3s
+      setTimeout(() => {
+        dispatch({ type: "LOGOUT" });
+        localStorage.removeItem("user");
+      }, 2000);
 
       return data;
     } catch (error) {
