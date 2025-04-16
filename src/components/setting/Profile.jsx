@@ -5,18 +5,15 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { useUplodeProfile } from "@/hook/useUplodeProfile";
 import { useAuthContext } from "@/hook/useAuthConext";
 import { toast } from "sonner";
+import ErrorBox from "../expense/ErrorBox";
 
 const Profile = () => {
   const { uplodePfp, profileError, setProfileError } = useUplodeProfile();
   const { user, dispatch } = useAuthContext();
 
   const onUploadeImg = async (file) => {
-    let res;
-
     const promise = async () => {
-      const data = await uplodePfp(file);
-      res = data;
-      return data;
+      return await uplodePfp(file);
     };
 
     toast.promise(promise(), {
@@ -27,11 +24,6 @@ const Profile = () => {
       },
       error: "Error",
     });
-
-    console.log(res);
-    if (res.id) {
-      localStorage.setItem("user");
-    }
   };
 
   return (
@@ -53,10 +45,17 @@ const Profile = () => {
           className="hidden"
           onChange={(e) => {
             const file = e.target.files[0];
-            console.log("Selected file:", file);
+            onUploadeImg(file);
           }}
         />
       </div>
+      {profileError && (
+        <ErrorBox
+          error={profileError}
+          setError={setProfileError}
+          errorText={"Error!"}
+        />
+      )}
     </>
   );
 };

@@ -3,7 +3,6 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { useAuthContext } from "@/hook/useAuthConext";
 import InputForm from "./Input";
 import AlertBox from "../alertbox/AlertBox";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +12,6 @@ import ErrorBox from "../expense/ErrorBox";
 const Password = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { editPass, passError, setPassError } = useEditPassword();
-  const { user, dispatch } = useAuthContext();
 
   const passwordSchema = z.object({
     oldPassword: z
