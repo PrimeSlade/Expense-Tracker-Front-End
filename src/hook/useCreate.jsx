@@ -21,7 +21,7 @@ export const useCreate = () => {
       return data;
     } catch (error) {
       console.log(error);
-      setCreateError(error.response.data.error);
+      setCreateError(error?.response?.data?.error);
     }
   };
 

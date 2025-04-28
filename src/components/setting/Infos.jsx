@@ -13,8 +13,6 @@ const Infos = () => {
   const { editInfo, infoError, setInfoError } = useEditInfos();
   const { user, dispatch } = useAuthContext();
 
-  console.log(user);
-
   const userSchema = z.object({
     name: z.string(),
     email: z.string().email(),

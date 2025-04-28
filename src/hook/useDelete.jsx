@@ -11,7 +11,7 @@ export const useDelete = () => {
       return data;
     } catch (error) {
       console.log(error.response.data.error);
-      setError(error.response.data.error);
+      setError(error?.response?.data?.error);
     }
   };
   return { remove, error, setError };

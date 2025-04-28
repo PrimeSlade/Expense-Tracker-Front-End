@@ -9,7 +9,7 @@ export const useFetchData = () => {
       const { data } = await axiosInstance.get("/lists/view");
       return data;
     } catch (error) {
-      setError(error.response.data.error);
+      setError(error?.response?.data?.error);
     }
   };
 

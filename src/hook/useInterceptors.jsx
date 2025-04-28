@@ -22,21 +22,41 @@ export const useInterceptors = () => {
 
     const responseIntercept = axiosInstance.interceptors.response.use(
       (response) => response,
-      (error) => {
-        if (error.response?.status === 401) {
-          // if (error.response.data.error === "Access token is not authorized") {
-          // }
-          console.log(error.response.data.error);
+      async (error) => {
+        const original = error.config;
 
-          toast.error("Session expired. Please log in again.");
+        if (
+          error.response?.status === 401 &&
+          error.response.data.error === "Access token is not authorized"
+        ) {
+          try {
+            const { data } = await axiosInstance.post("/api/auth/refresh");
 
-          setTimeout(() => {
-            dispatch({ type: "LOGOUT" });
-            localStorage.removeItem("user");
-          }, 3000);
+            const oldData = JSON?.parse(localStorage.getItem("user"));
+            const newUser = { ...oldData, accessToken: data };
+
+            localStorage.setItem("user", JSON.stringify(newUser));
+            dispatch({ type: "LOGIN", payload: newUser });
+
+            console.log("new User ", newUser);
+            original.headers["Authorization"] = `Bearer ${data}`;
+
+            //retry it again
+            return axiosInstance(original);
+          } catch (refreshError) {
+            //if refresh token is invalid
+            console.log(refreshError.response.data.error);
+            toast.error("Session expired. Please log in again.");
+
+            setTimeout(() => {
+              dispatch({ type: "LOGOUT" });
+              localStorage.removeItem("user");
+            }, 3000);
+
+            return Promise.reject(refreshError);
+          }
         }
 
-        // Reject the promise to propagate the error
         return Promise.reject(error);
       }
     );

@@ -18,10 +18,11 @@ export const AuthContextProvider = ({ children }) => {
     user: null,
   });
 
+  //TODO: might cause an error
   //setting initial value when page is mounted
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    console.log(user);
     dispatch({ type: "LOGIN", payload: user });
   }, []);
 

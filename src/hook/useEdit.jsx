@@ -30,7 +30,7 @@ export const useEdit = () => {
       return data;
     } catch (error) {
       console.log(error);
-      setEditError(error.response.data.error);
+      setEditError(error?.response?.data?.error);
     }
   };
   return { edit, editError, setEditError };
