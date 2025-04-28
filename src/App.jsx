@@ -8,8 +8,11 @@ import Expenses from "./pages/expenses/Expenses";
 import SmartSave from "./pages/smart_save/SmartSave";
 import Setting from "./pages/setting/Setting";
 import Home from "./pages/home/Home";
+import { useInterceptors } from "./hook/useInterceptors";
 
 function App() {
+  useInterceptors();
+
   const { user } = useAuthContext();
 
   return (
