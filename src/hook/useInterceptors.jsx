@@ -1,11 +1,8 @@
 import axiosInstance from "../../axiosInstance";
 import React, { useEffect } from "react";
-import { useAuthContext } from "./useAuthConext";
 import { toast } from "sonner";
 
-export const useInterceptors = () => {
-  const { dispatch } = useAuthContext();
-
+export const useInterceptors = (dispatch) => {
   useEffect(() => {
     const requestIntercept = axiosInstance.interceptors.request.use(
       (config) => {
@@ -43,8 +40,6 @@ export const useInterceptors = () => {
             //retry it again
             return axiosInstance(original);
           } catch (refreshError) {
-            //if refresh token is invalid
-
             toast.error("Session expired. Please log in again.");
 
             setTimeout(() => {

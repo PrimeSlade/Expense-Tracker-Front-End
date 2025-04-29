@@ -1,3 +1,4 @@
+import { useInterceptors } from "@/hook/useInterceptors";
 import { createContext, useReducer, useEffect } from "react";
 
 export const AuthContext = createContext();
@@ -17,6 +18,8 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
   });
+
+  useInterceptors(dispatch);
 
   //TODO: might cause an error
   //setting initial value when page is mounted
